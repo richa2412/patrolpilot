@@ -16,6 +16,20 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS,STATS_items, SITE } from '@/lib/
 // import { getACFOptions, getLatestPosts } from '@/lib/wordpress';
 // const wpOptions = await getACFOptions();
 // const latestPosts = await getLatestPosts(3);
+
+const SECURITY_TICKER_ICON_PATHS: Record<string, string> = {
+  shield: 'M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4z',
+  clock: 'M12 6v6l4 2M12 2a10 10 0 100 20 10 10 0 000-20z',
+  'map-pin': 'M12 21s6-4.5 6-11a6 6 0 10-12 0c0 6.5 6 11 6 11zM12 10a2 2 0 100-4 2 2 0 000 4z',
+  calendar: 'M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z',
+  'phone-call': 'M22 16.9v3a2 2 0 01-2.2 2A20 20 0 019.2 18a20 20 0 01-6.3-6.3A20 20 0 011 5.1 2 2 0 013 3h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L7 10.4a16 16 0 006.6 6.6l1.1-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0122 16.9z',
+  'file-text': 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M8 13h8M8 17h8M8 9h4',
+  smartphone: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zM12 18h.01',
+  'check-circle': 'M22 11.1V12a10 10 0 11-5.9-9.1M22 4L12 14l-3-3',
+  'bar-chart-2': 'M6 20v-6M12 20V4M18 20v-10',
+  navigation: 'M3 11l18-8-8 18-2-8-8-2z',
+  'dollar-sign': 'M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6',
+};
 ---
 
 <Layout
@@ -228,7 +242,9 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS,STATS_items, SITE } from '@/lib/
     <div class="flex items-center gap-9 whitespace-nowrap" style="animation:tickerMove 30s linear infinite">
       {[...SECURITY_TICKER_ITEMS, ...SECURITY_TICKER_ITEMS].map(item => (
         <span class="flex items-center gap-2.5 flex-shrink-0 font-mono text-[.6rem] tracking-[.18em] uppercase text-white/30">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <path d={SECURITY_TICKER_ICON_PATHS[item.icon] ?? SECURITY_TICKER_ICON_PATHS.shield} />
+          </svg>
           {item.label}
         </span>
         <span class="w-[3px] h-[3px] rounded-full bg-white/15 flex-shrink-0"></span>
