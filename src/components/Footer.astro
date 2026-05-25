@@ -5,6 +5,49 @@ interface Props {
   prefix?: string;
 }
 const { prefix = "" } = Astro.props;
+
+const FOOTER_COLUMNS = [
+  {
+    label: 'Product',
+    links: [
+      { href: '/features', label: 'All Features' },
+      { href: '/how-it-works', label: 'How It Works' },
+      { href: '/pricing', label: 'Pricing' },
+      { href: '/request-demo', label: 'Request Demo' },
+      { href: '/mobile-patrol-app', label: 'Mobile App' },
+    ],
+  },
+  {
+    label: 'Solutions',
+    links: [
+      { href: '/security-guard-management-software', label: 'Guard Management' },
+      { href: '/security-guard-scheduling-software', label: 'Guard Scheduling' },
+      { href: '/security-rostering-software', label: 'Rostering' },
+      { href: '/guard-tour-software', label: 'Guard Tours' },
+      { href: '/mobile-patrol-app', label: 'Mobile Patrol' },
+    ],
+  },
+  {
+    label: 'Company',
+    links: [
+      { href: '/about', label: 'About Us' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/contact', label: 'Contact' },
+      { href: '/contact', label: 'Careers' },
+      { href: '/contact', label: 'Partners' },
+    ],
+  },
+  {
+    label: 'Support',
+    links: [
+      { href: '/contact', label: 'Help Centre' },
+      { href: '/features', label: 'Documentation' },
+      { href: '/contact', label: 'API Docs' },
+      { href: '/privacy', label: 'Status Page' },
+      { href: '/privacy', label: 'Security' },
+    ],
+  },
+] as const;
 ---
 
 <footer
@@ -127,72 +170,22 @@ const { prefix = "" } = Astro.props;
     <div
       class="grid grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/[0.07] mb-8"
     >
-      <div>
-        <p
-          class="font-mono text-[.54rem] tracking-[.3em] uppercase text-white/18 mb-[18px]"
-        >
-          Product
-        </p>
-        <ul class="space-y-2.5 list-none">
-          <li><a href="/features" class="footer-link">All Features</a></li>
-          <li><a href="/pricing" class="footer-link">Pricing</a></li>
-          <li><a href="/how-it-works" class="footer-link">How It Works</a></li>
-          <li><a href="/request-demo" class="footer-link">Request Demo</a></li>
-        <li><a href="/mobile-patrol-app" class="footer-link">Mobile App</a> </li>
-        </ul>
-      </div>
-      <div>
-        <p
-          class="font-mono text-[.54rem] tracking-[.3em] uppercase text-white/18 mb-[18px]"
-        >
-          Solutions
-        </p>
-        <ul class="space-y-2.5 list-none">
-          <li>
-            <a href="/security-guard-management-software" class="footer-link"
-              >Guard Management</a>
-          </li>
-          <li>
-            <a href="/security-guard-scheduling-software" class="footer-link"
-              >Scheduling</a>
-          </li>
-          <li>
-            <a href="/guard-tour-software" class="footer-link">Guard Tours</a>
-          </li>
-          <li>
-            <a href="/mobile-patrol-app" class="footer-link">Mobile App</a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p
-          class="font-mono text-[.54rem] tracking-[.3em] uppercase text-white/18 mb-[18px]"
-        >
-          Account
-        </p>
-        <ul class="space-y-2.5 list-none">
-          <li><a href="/login" class="footer-link">Log In</a></li>
-          <li><a href="/signup" class="footer-link">Sign Up</a></li>
-          <li>
-            <a href="/forgot-password" class="footer-link">Reset Password</a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <p
-          class="font-mono text-[.54rem] tracking-[.3em] uppercase text-white/18 mb-[18px]"
-        >
-          Legal
-        </p>
-        <ul class="space-y-2.5 list-none">
-          <li>
-            <a href="/terms" class="footer-link">Terms &amp; Conditions</a>
-          </li>
-          <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
-          <li><a href="/cookies" class="footer-link">Cookie Policy</a></li>
-          <li><a href="/contact" class="footer-link">Contact</a></li>
-        </ul>
-      </div>
+      {FOOTER_COLUMNS.map((column) => (
+        <div>
+          <p
+            class="font-mono text-[.54rem] tracking-[.3em] uppercase text-white/18 mb-[18px]"
+          >
+            {column.label}
+          </p>
+          <ul class="space-y-2.5 list-none">
+            {column.links.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
 
     <!-- Bottom bar -->
