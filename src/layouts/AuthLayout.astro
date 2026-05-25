@@ -1,0 +1,93 @@
+---
+/**
+ * AuthLayout.astro
+ * Minimal layout for auth pages — centered card, no nav/footer
+ */
+import BaseHead from '@/components/BaseHead.astro';
+import '@/styles/global.css';
+import { SITE } from '@/lib/config';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <BaseHead title={title} description={description} />
+  <style>
+    body {
+      min-height: 100vh;
+      background: #f3f6fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #d8e2ef;
+      box-shadow: 0 24px 64px rgba(13,33,55,.14), 0 4px 20px rgba(13,33,55,.08);
+      overflow: hidden;
+    }
+    .auth-card-top {
+      background: #0d2137;
+      padding: 36px 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-card-top::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 120%, rgba(31,168,75,.18) 0%, transparent 65%);
+    }
+    .auth-card-top::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .auth-body { padding: 36px 40px; }
+    @media (max-width: 480px) {
+      .auth-card-top, .auth-body { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <!-- Card top: logo + title -->
+    <div class="auth-card-top">
+      <div style="position:relative;z-index:1">
+        <div style="display:flex;align-items:center;justify-center;gap:12px;margin-bottom:18px">
+          <div style="width:60px;height:60px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-center;box-shadow:0 4px 16px rgba(0,0,0,.25)">
+            <img src={SITE.logo} alt={SITE.name} width="56" height="56" style="object-fit:cover;border-radius:10px" />
+          </div>
+          <div style="text-align:left">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:-.025em;line-height:1">
+              Patrol<span style="color:#1fa84b">Pilot</span>
+            </div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:3px">
+              Security Management
+            </div>
+          </div>
+        </div>
+        <slot name="card-title" />
+      </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="auth-body">
+      <slot />
+    </div>
+  </div>
+</body>
+</html>

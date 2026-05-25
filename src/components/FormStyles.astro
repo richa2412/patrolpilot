@@ -1,0 +1,46 @@
+---
+// FormStyles.astro — injects shared form CSS used by contact, demo, pricing forms
+---
+<style is:global>
+  .form-label {
+    font-family: 'Space Mono', monospace;
+    font-size: .57rem; letter-spacing: .22em;
+    text-transform: uppercase; color: #1a3a60;
+    display: block; margin-bottom: 6px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 11px 14px;
+    background: #f3f6fb; border: 1.5px solid #d8e2ef;
+    border-radius: 10px; font-size: .9rem; color: #0a1628;
+    font-family: 'Outfit', sans-serif;
+    outline: none;
+    transition: border-color .22s, box-shadow .22s, background .22s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: #1fa84b;
+    box-shadow: 0 0 0 3px rgba(31,168,75,.1);
+    background: #fff;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: #8599b0; }
+  .form-textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+  .form-req { color: #ef4444; }
+  .form-field { display: flex; flex-direction: column; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 480px) { .form-grid-2 { grid-template-columns: 1fr; } }
+  .btn-submit {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .9rem; font-weight: 600; color: #fff;
+    background: linear-gradient(135deg, #24c455, #1fa84b, #178a3c);
+    border: none; border-radius: 10px; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(31,168,75,.3);
+    transition: filter .22s, transform .22s, box-shadow .22s;
+    position: relative; overflow: hidden;
+  }
+  .btn-submit:hover {
+    filter: brightness(1.07); transform: translateY(-1px);
+    box-shadow: 0 10px 32px rgba(31,168,75,.42);
+  }
+  .btn-submit:active { transform: scale(.98); }
+</style>

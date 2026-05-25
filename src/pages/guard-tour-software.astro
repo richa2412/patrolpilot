@@ -1,0 +1,63 @@
+---
+import SolutionPage from '@/components/SolutionPage.astro';
+---
+
+<SolutionPage
+  metaTitle="Guard Tour Software with NFC Checkpoints | PatrolPilot"
+  metaDesc="Verify guard patrols with tamper-proof NFC checkpoint scanning. Automatic client patrol reports generated after every tour. USA, Canada, UK, UAE, Singapore."
+  eyebrow="Guard Tours"
+  heroTitle="Guard Tour Software"
+  heroEm="NFC-powered patrol verification."
+  heroSub="Verify guard patrols with tamper-proof NFC checkpoint scanning. Automatic client reports generated after every tour — no manual paperwork."
+  intro="PatrolPilot's guard tour software uses NFC (Near Field Communication) technology to verify guard presence at defined checkpoints during patrol rounds. Every scan is timestamped and geo-tagged, creating an irrefutable audit trail for your clients. Used by security companies across the USA, Canada, UK, UAE and Singapore to eliminate patrol fraud and build client trust."
+  features={[
+    {
+      title: 'NFC Checkpoint Scanning',
+      desc: 'Guards tap their phone against NFC tags installed at checkpoints. Each scan is recorded with a timestamp, GPS location and guard ID — tamper-proof.',
+      icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4',
+    },
+    {
+      title: 'Automated Tour Reports',
+      desc: 'After each patrol round, PatrolPilot automatically generates a detailed tour report with all checkpoint scans, times, guard details and route map.',
+      icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z',
+    },
+    {
+      title: 'Missed Checkpoint Alerts',
+      desc: 'Instant alerts to supervisors if a guard misses a scheduled checkpoint scan. Never let a client wonder if their site was properly patrolled.',
+      icon: 'M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9',
+    },
+    {
+      title: 'Custom Patrol Routes',
+      desc: 'Define patrol routes with required checkpoints and time windows for each scan. Flexible enough for any site layout or security requirement.',
+      icon: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z',
+    },
+    {
+      title: 'Client Portal Access',
+      desc: 'Give clients read-only access to their patrol reports. Build trust and reduce client queries with transparent, real-time reporting.',
+      icon: 'M22 12h-4l-3 9L9 3l-3 9H2',
+    },
+    {
+      title: 'Offline Mode',
+      desc: 'NFC scans are queued and synced when connectivity is restored. Guards can complete patrols even in underground car parks or low-signal areas.',
+      icon: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z',
+    },
+  ]}
+  faqs={[
+    {
+      q: 'What is NFC guard tour software?',
+      a: 'NFC guard tour software uses Near Field Communication tags placed at checkpoints around a site. Guards scan the tags with their smartphone during patrol rounds, creating a verified, timestamped record of their patrol. This replaces wand-based systems and paper logs.',
+    },
+    {
+      q: 'Are the NFC tags tamper-proof?',
+      a: 'NFC tags themselves are passive and cannot be manipulated. PatrolPilot records the GPS location at the time of each scan, so any attempt to scan from a remote location would be flagged as a location mismatch.',
+    },
+    {
+      q: 'How are tour reports delivered to clients?',
+      a: 'Tour reports can be automatically emailed to clients after each patrol, accessed through the client portal, or downloaded as PDFs on demand. Reports are white-labelled with your company branding.',
+    },
+    {
+      q: 'What happens if the phone has no internet connection during a patrol?',
+      a: 'The PatrolPilot app has a full offline mode. NFC scans, GPS locations and timestamps are stored on the device and automatically synced to the platform when internet connectivity is restored.',
+    },
+  ]}
+/>

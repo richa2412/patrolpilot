@@ -1,0 +1,131 @@
+---
+/**
+ * request-demo.astro
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import FormStyles from '@/components/FormStyles.astro';
+---
+
+<Layout
+  title="Book a Free Demo"
+  description="Get a personalised 30-minute walkthrough of PatrolPilot. See GPS tracking, NFC checkpoints, scheduling and compliance in action — no commitment required."
+>
+  <FormStyles />
+
+  <PageHero
+    eyebrow="Book a Demo"
+    title="See PatrolPilot"
+    titleEm="in action."
+    sub="Get a personalised 30-minute walkthrough with one of our security software specialists. We'll show you exactly how PatrolPilot can work for your business."
+    center={true}
+  >
+    <div class="mt-4">
+      <span class="sec-badge sec-badge--navy inline-flex">
+        <span class="badge-dot" style="background:#1fa84b;animation:dotPulse 2s ease infinite"></span>
+        30-minute session · No commitment required
+      </span>
+    </div>
+  </PageHero>
+
+  <section class="section bg-[#f3f6fb]">
+    <div class="container">
+      <div class="max-w-[640px] mx-auto">
+
+        <!-- Demo stats row -->
+        <div class="grid grid-cols-3 gap-4 mb-10">
+          {[{v:'30 min',l:'Demo Length'},{v:'Free',l:'No Commitment'},{v:'1 day',l:'Response Time'}].map((s,i) => (
+            <div class="text-center bg-white rounded-[12px] border border-[#d8e2ef] p-4 reveal" data-delay={String(i+1)}>
+              <div class:list={["font-display text-[1.6rem] font-bold tracking-[-0.04em]", i === 1 ? "text-[#1fa84b]" : "text-[#0d2137]"]}>{s.v}</div>
+              <div class="font-mono text-[.57rem] tracking-[.16em] uppercase text-[#8599b0] mt-1">{s.l}</div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Form card -->
+        <div class="bg-white rounded-[20px] border border-[#d8e2ef] shadow-[0_24px_64px_rgba(13,33,55,.14)] p-10 reveal" data-delay="1">
+          <h2 class="font-display text-[1.5rem] font-bold text-[#0d2137] tracking-[-0.04em] mb-2">Request your free demo</h2>
+          <p class="text-[.9rem] text-[#4e647d] mb-7">Our team will reach out within 1 business day to schedule your session.</p>
+
+          <form class="space-y-[18px]" onsubmit="return false">
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label class="form-label">First Name <span class="form-req">*</span></label>
+                <input type="text" class="form-input" placeholder="Alex" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Last Name <span class="form-req">*</span></label>
+                <input type="text" class="form-input" placeholder="Johnson" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Work Email <span class="form-req">*</span></label>
+              <input type="email" class="form-input" placeholder="alex@yoursecuritycompany.com" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Company Name <span class="form-req">*</span></label>
+              <input type="text" class="form-input" placeholder="ABC Security Services" />
+            </div>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label class="form-label">Country <span class="form-req">*</span></label>
+                <select class="form-input">
+                  <option value="">Select...</option>
+                  <option>🇺🇸 United States</option>
+                  <option>🇨🇦 Canada</option>
+                  <option>🇬🇧 United Kingdom</option>
+                  <option>🇦🇪 UAE</option>
+                  <option>🇸🇬 Singapore</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Number of Guards</label>
+                <select class="form-input">
+                  <option value="">Select...</option>
+                  <option>1–25 guards</option>
+                  <option>26–75 guards</option>
+                  <option>76–200 guards</option>
+                  <option>200+ guards</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">What's your biggest challenge?</label>
+              <textarea class="form-textarea" rows="3" placeholder="e.g. tracking guards on multiple sites, licence compliance, replacing paper patrol logs..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit w-full justify-center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+              Book My Free Demo
+            </button>
+            <p class="text-[.8rem] text-[#8599b0] text-center">
+              No credit card required. 14-day free trial included after demo.
+            </p>
+          </form>
+        </div>
+
+        <!-- Trust items -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+          {[
+            {icon:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',text:'AES-256 Encrypted'},
+            {icon:'M20 6 9 17l-5-5',text:'No commitment'},
+            {icon:'M12 2a10 10 0 110 20A10 10 0 0112 2z',text:'5 regions supported'},
+            {icon:'M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6',text:'Pricing from $3,500/yr'},
+          ].map(t => (
+            <div class="flex items-center gap-2 p-3 bg-white rounded-[10px] border border-[#d8e2ef]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2" class="flex-shrink-0">
+                <path d={t.icon}/>
+              </svg>
+              <span class="text-[.78rem] text-[#4e647d] font-medium leading-tight">{t.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

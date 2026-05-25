@@ -1,0 +1,188 @@
+---
+/**
+ * blog/index.astro
+ * Fetches posts from WordPress REST API at build time
+ * Supports pagination via ?page= query param
+ */
+import Layout from '@/layouts/Layout.astro';
+import { getAllPosts, getLatestPosts, getAllCategories, getImageUrl, formatDate, truncate, stripHtml } from '@/lib/wordpress';
+import type { WPPost, WPTerm } from '@/lib/wordpress';
+
+// Fetch from WordPress at build time
+let posts: WPPost[] = [];
+let categories: WPTerm[] = [];
+let totalPages = 1;
+
+try {
+  const result = await getAllPosts({ perPage: 9 });
+  posts = result.posts;
+  totalPages = result.pages;
+  categories = await getAllCategories();
+} catch (e) {
+  // Fallback static content when WP is not connected
+  console.warn('WordPress not connected, using fallback data');
+}
+
+// Fallback posts for preview/development
+const fallbackPosts = [
+  { id:1, slug:'gps-guard-tracking-guide', date:'2025-05-14', title:{rendered:'GPS Guard Tracking: The Complete Guide'}, excerpt:{rendered:'<p>Real-time GPS tracking is transforming how security companies manage their guards. Here\'s everything you need to know.</p>'}, categories:[1], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+  { id:2, slug:'nfc-checkpoints-patrol-fraud', date:'2025-05-07', title:{rendered:'How NFC Checkpoints Eliminate Patrol Fraud and Build Client Trust'}, excerpt:{rendered:'<p>Patrol fraud costs security companies millions in liability and lost contracts each year. NFC checkpoints end it.</p>'}, categories:[2], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+  { id:3, slug:'security-licence-compliance', date:'2025-04-28', title:{rendered:'Security Guard Licence Compliance: A Manager\'s Guide'}, excerpt:{rendered:'<p>Managing security licence compliance across a large guard workforce is complex. This guide covers everything managers need to know.</p>'}, categories:[3], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+  { id:4, slug:'ditching-spreadsheets-2025', date:'2025-04-18', title:{rendered:'Why Security Companies Are Ditching Spreadsheets in 2025'}, excerpt:{rendered:'<p>A survey of 200 security operations managers reveals the real cost of running on spreadsheets — and what forward-thinking companies are doing instead.</p>'}, categories:[1], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+  { id:5, slug:'lone-worker-safety', date:'2025-04-08', title:{rendered:'The Lone Worker Safety Handbook'}, excerpt:{rendered:'<p>Lone workers in the security industry face unique risks. This handbook covers best practices, legal obligations and the technology solutions that keep guards safe.</p>'}, categories:[2], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+  { id:6, slug:'patrolpilot-vs-guardhouse', date:'2025-03-25', title:{rendered:'PatrolPilot vs Guardhouse: Which Security Management Software Is Right for You?'}, excerpt:{rendered:'<p>A detailed, honest comparison for security companies — features, pricing, compliance and customer support.</p>'}, categories:[3], tags:[], featured_media:0, content:{rendered:''}, acf:{} },
+];
+
+const displayPosts = posts.length > 0 ? posts : fallbackPosts;
+
+const fallbackCategories = [
+  { id:1, name:'Technology', slug:'technology', count:3 },
+  { id:2, name:'Operations', slug:'operations', count:2 },
+  { id:3, name:'Compliance', slug:'compliance', count:2 },
+];
+const displayCategories = categories.length > 0 ? categories : fallbackCategories;
+
+// Category colour map
+const catColours: Record<string, string> = {
+  technology: '#0d2137',
+  operations: '#1a3a60',
+  compliance: '#0f6a2e',
+  safety: '#b91c1c',
+  industry: '#7c3aed',
+  comparison: '#d97706',
+};
+---
+
+<Layout
+  title="Security Guard Management Blog"
+  description="Industry insights, compliance guides and best practices for security operations managers in the USA, Canada, UK, UAE and Singapore."
+>
+
+  <!-- Hero -->
+  <section class="page-hero" style="padding:140px 0 80px;background:var(--navy);position:relative;overflow:hidden">
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse 70% 60% at 65% 50%,rgba(31,168,75,.09) 0%,transparent 65%),radial-gradient(ellipse 50% 80% at 5% 50%,rgba(26,58,96,.5) 0%,transparent 60%)"></div>
+    <div class="absolute inset-0" style="background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:60px 60px;mask-image:linear-gradient(0deg,transparent 0%,#000 30%,#000 70%,transparent 100%)"></div>
+    <div class="container relative z-10">
+      <div class="eyebrow eyebrow--light animate-fade-up">Security Insights</div>
+      <h1 class="font-display font-bold text-white tracking-[-0.05em] leading-[.96] mt-4 mb-5 animate-fade-up"
+          style="font-size:clamp(2.6rem,5vw,4.2rem);animation-delay:.1s">
+        The PatrolPilot
+        <span style="background:linear-gradient(135deg,#2dd65a,#1fa84b,#148036);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Blog</span>
+      </h1>
+      <p class="text-[1.05rem] text-white/40 max-w-[520px] leading-[1.74] font-light animate-fade-up" style="animation-delay:.2s">
+        Industry insights, compliance guides and best practices for security operations managers worldwide.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category filter -->
+  <div class="py-6 border-b border-[#d8e2ef] bg-white sticky top-[76px] z-10">
+    <div class="container">
+      <div class="flex items-center gap-2 flex-wrap">
+        <a href="/blog" class="px-4 py-1.5 font-display text-[.82rem] font-600 rounded-full bg-[#0d2137] text-white">
+          All Posts
+        </a>
+        {displayCategories.map(cat => (
+          <a href={`/blog/category/${cat.slug}`}
+             class="px-4 py-1.5 font-display text-[.82rem] font-semibold rounded-full border border-[#d8e2ef] text-[#4e647d] hover:border-[#0d2137] hover:text-[#0d2137] hover:bg-[#f3f6fb] transition-colors">
+            {cat.name}
+            <span class="ml-1 text-[.7rem] text-[#8599b0]">({cat.count})</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts grid -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+        {displayPosts.map((post, i) => {
+          const imgUrl = getImageUrl ? getImageUrl(post as WPPost) : null;
+          const gradients = [
+            'linear-gradient(135deg,#0d2137,#1a3a60)',
+            'linear-gradient(135deg,#0f2a1a,#1a4a2e)',
+            'linear-gradient(135deg,#1a1a0d,#3a3a1a)',
+            'linear-gradient(135deg,#1a0d2a,#3a1a5a)',
+            'linear-gradient(135deg,#2a0d0d,#5a1a1a)',
+            'linear-gradient(135deg,#0d2137,#0f2948)',
+          ];
+          const grad = gradients[i % gradients.length];
+
+          return (
+            <a href={`/blog/${post.slug}`}
+               class="bg-white rounded-[16px] border border-[#d8e2ef] overflow-hidden
+                       hover:shadow-[0_8px_32px_rgba(13,33,55,.13)] hover:-translate-y-1
+                       transition-all duration-[.24s] block reveal" data-delay={String((i%3)+1)}>
+              <!-- Card image -->
+              <div class="h-[185px] relative overflow-hidden">
+                {imgUrl ? (
+                  <img src={imgUrl} alt={post.title.rendered} class="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <div class="w-full h-full" style={`background:${grad}`}></div>
+                )}
+              </div>
+              <!-- Card body -->
+              <div class="p-5">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-mono text-[.55rem] tracking-[.25em] uppercase text-[#1fa84b]">
+                    Insights
+                  </span>
+                  <span class="font-mono text-[.55rem] tracking-[.14em] uppercase text-[#8599b0]">
+                    {formatDate ? formatDate(post.date) : post.date.split('T')[0]}
+                  </span>
+                </div>
+                <h2 class="font-display text-[.95rem] font-semibold text-[#0d2137] leading-[1.32] mb-2 tracking-[-0.02em]"
+                    set:html={post.title.rendered} />
+                <p class="text-[.84rem] text-[#4e647d] leading-[1.66] mb-3">
+                  {truncate ? truncate(stripHtml(post.excerpt.rendered), 110) : ''}
+                </p>
+                <span class="font-display text-[.8rem] font-semibold text-[#1fa84b] inline-flex items-center gap-1">
+                  Read Article
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- Pagination -->
+      {totalPages > 1 && (
+        <div class="flex items-center justify-center gap-2 mt-12">
+          <a href="/blog" class="px-4 py-2 font-display text-[.875rem] font-semibold rounded-[8px] bg-[#0d2137] text-white">1</a>
+          {Array.from({length: Math.min(totalPages - 1, 4)}, (_, i) => i + 2).map(p => (
+            <a href={`/blog?page=${p}`}
+               class="px-4 py-2 font-display text-[.875rem] font-semibold rounded-[8px] border border-[#d8e2ef] text-[#4e647d] hover:border-[#0d2137] hover:text-[#0d2137] transition-colors">
+              {p}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative overflow-hidden py-[90px] text-center" style="background:linear-gradient(135deg,#07111f,#0d2137,#0f2948)">
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(31,168,75,.1) 0%,transparent 65%)"></div>
+    <div class="container relative z-10">
+      <div class="eyebrow-center reveal">Try PatrolPilot Free</div>
+      <h2 class="font-display font-bold text-white tracking-[-0.05em] leading-[.96] mt-4 mb-5 mx-auto reveal"
+          style="font-size:clamp(2rem,3.5vw,3rem);max-width:560px" data-delay="1">
+        Stop managing guards with spreadsheets.
+      </h2>
+      <div class="flex items-center justify-center gap-3 flex-wrap reveal" data-delay="2">
+        <a href="/request-demo"
+           class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white rounded-[12px]
+                  bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                  hover:brightness-110 hover:-translate-y-0.5 transition-all">
+          Book a Free Demo
+        </a>
+        <a href="/pricing" class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white/85 rounded-[12px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/16 hover:text-white transition-all">
+          View Pricing
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

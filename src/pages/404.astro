@@ -1,0 +1,59 @@
+---
+/**
+ * 404.astro — Custom not-found page
+ */
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Page Not Found" description="The page you were looking for doesn't exist.">
+  <section class="min-h-screen bg-[#0d2137] flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(31,168,75,.08) 0%,transparent 65%)"></div>
+    <div class="absolute inset-0" style="background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:60px 60px"></div>
+    <div class="container relative z-10 text-center py-20">
+      <div class="font-mono text-[.6rem] tracking-[.28em] uppercase text-[#1fa84b] mb-4">Error 404</div>
+      <h1 class="font-display font-bold text-white tracking-[-0.055em] leading-[.94] mb-6"
+          style="font-size:clamp(3rem,8vw,7rem)">
+        Page not
+        <span class="block" style="background:linear-gradient(135deg,#2dd65a,#1fa84b,#148036);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
+          found.
+        </span>
+      </h1>
+      <p class="text-[1.05rem] text-white/44 max-w-[480px] mx-auto mb-10 leading-[1.74] font-light">
+        The page you were looking for doesn't exist or has been moved.
+        Let's get you back on patrol.
+      </p>
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <a href="/"
+           class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white rounded-[10px]
+                  bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                  shadow-[0_6px_20px_rgba(31,168,75,.3)]
+                  hover:brightness-110 hover:-translate-y-px transition-all">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Home
+        </a>
+        <a href="/features"
+           class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white/85 rounded-[10px]
+                  bg-white/[0.08] border border-white/[0.18]
+                  hover:bg-white/[0.16] hover:text-white transition-all">
+          View Features
+        </a>
+      </div>
+
+      <!-- Quick links -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-[640px] mx-auto">
+        {[
+          {href:'/features', label:'Features'},
+          {href:'/pricing', label:'Pricing'},
+          {href:'/blog', label:'Blog'},
+          {href:'/contact', label:'Contact'},
+        ].map(link => (
+          <a href={link.href}
+             class="py-2.5 px-4 rounded-[8px] border border-white/[0.1] text-white/50 font-display text-[.84rem] font-medium
+                    hover:border-white/[0.25] hover:text-white transition-all text-center">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

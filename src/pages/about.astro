@@ -1,0 +1,147 @@
+---
+/**
+ * about.astro
+ * Company story, mission, team members
+ * WP: team members via custom post type 'team_member'
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CTASection from '@/components/CTASection.astro';
+
+const team = [
+  {
+    initials: 'AJ',
+    name: 'Alex Johnson',
+    role: 'CEO & Co-Founder',
+    bio: '14 years in physical security across the USA and UK. Former Operations Director at one of the top-10 security companies in North America.',
+    grad: 'from-[#142d4c] to-[#178a3c]',
+  },
+  {
+    initials: 'SC',
+    name: 'Sarah Chen',
+    role: 'CTO & Co-Founder',
+    bio: 'Previously led engineering at two global SaaS companies. Deep expertise in real-time tracking and dispatch systems at scale.',
+    grad: 'from-[#178a3c] to-[#1a3a60]',
+  },
+  {
+    initials: 'MT',
+    name: 'Michael Torres',
+    role: 'Head of Customer Success',
+    bio: 'Spent 8 years as a security operations manager across UAE and UK before joining PatrolPilot to help customers get the most from the platform.',
+    grad: 'from-[#1f4880] to-[#1fa84b]',
+  },
+];
+
+const values = [
+  { icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', title: 'Security First', desc: 'We hold our own platform to the same standard we expect from the companies using it — no compromises on data security.' },
+  { icon: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2', title: 'Customer Obsessed', desc: 'Every product decision starts with the security manager. We talk to customers weekly and ship based on real operational feedback.' },
+  { icon: 'M12 2a10 10 0 110 20A10 10 0 0112 2z', title: 'Global Thinking', desc: 'Built from day one to serve security companies across different regions, regulatory frameworks and working cultures.' },
+  { icon: 'M22 12h-4l-3 9L9 3l-3 9H2', title: 'Data Transparency', desc: 'We believe in giving managers accurate, real-time data — not polished summaries that hide what\'s actually happening on the ground.' },
+];
+---
+
+<Layout
+  title="About PatrolPilot"
+  description="PatrolPilot was founded by former security operations managers across the USA, UK and UAE who were frustrated with outdated, disconnected tools."
+>
+  <PageHero
+    eyebrow="Our Story"
+    title="Built by security professionals,"
+    titleEm="for security professionals."
+    sub="PatrolPilot was founded by a team of former security operations managers across the USA, UK and UAE who were frustrated with outdated, disconnected tools. We built the platform we always wished we had."
+  >
+    <div class="flex gap-3 flex-wrap mt-6">
+      <a href="/request-demo" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white rounded-[10px] bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c] shadow-[0_6px_20px_rgba(31,168,75,.3)] hover:brightness-110 hover:-translate-y-px transition-all">Book a Demo</a>
+      <a href="/contact" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white/85 rounded-[10px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/[0.16] hover:text-white transition-all">Get in Touch</a>
+    </div>
+  </PageHero>
+
+  <!-- Mission + Stats -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+        <div class="reveal reveal-l">
+          <div class="eyebrow mb-3">Our Mission</div>
+          <h2 class="font-display text-[2.2rem] font-bold text-[#0d2137] tracking-[-0.04em] leading-[1.06] mb-5">
+            Raising the standard of security management globally
+          </h2>
+          <p class="text-[1rem] text-[#4e647d] leading-[1.74] mb-4">
+            Too many security companies across the USA, Canada, UK, UAE and Singapore are still running on spreadsheets,
+            WhatsApp groups and paper logs. We built PatrolPilot to change that — making enterprise-grade security management
+            accessible to companies of all sizes.
+          </p>
+          <p class="text-[1rem] text-[#4e647d] leading-[1.74]">
+            Our team spans the USA, UK, UAE and Singapore with direct experience managing security operations, which means
+            every feature in PatrolPilot solves a real problem we've personally faced on the ground.
+          </p>
+        </div>
+        <!-- Stats grid -->
+        <div class="grid grid-cols-2 gap-3 reveal reveal-r" data-delay="1">
+          {[
+            {v:'2019',l:'Founded',bg:'bg-[#0d2137]',tc:'text-white',lc:'text-white/30'},
+            {v:'500+',l:'Customers',bg:'bg-[#1fa84b]',tc:'text-white',lc:'text-white/70'},
+            {v:'12K+',l:'Guards Managed',bg:'bg-[#f3f6fb]',tc:'text-[#0d2137]',lc:'text-[#8599b0]', border:true},
+            {v:'GLOBAL',l:'5 Countries',bg:'bg-[#f3f6fb]',tc:'text-[#1fa84b]',lc:'text-[#8599b0]', border:true},
+          ].map(s => (
+            <div class:list={[
+              "rounded-[14px] p-6 text-center",
+              s.bg,
+              s.border && "border border-[#d8e2ef]"
+            ]}>
+              <div class:list={["font-display text-[2.4rem] font-bold tracking-[-0.05em] leading-none", s.tc]}>{s.v}</div>
+              <div class:list={["font-mono text-[.56rem] tracking-[.18em] uppercase mt-2", s.lc]}>{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="mb-20">
+        <div class="text-center mb-12">
+          <div class="eyebrow-center reveal">What We Stand For</div>
+          <h2 class="font-display text-[2rem] font-bold text-[#0d2137] tracking-[-0.04em] mt-3.5 reveal" data-delay="1">Our values</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {values.map((v, i) => (
+            <div class="bg-[#f3f6fb] rounded-[16px] border border-[#d8e2ef] p-6 reveal" data-delay={String(i+1)}>
+              <div class="w-[44px] h-[44px] rounded-[11px] bg-[#e8f8ee] flex items-center justify-center mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2">
+                  <path d={v.icon}/>
+                </svg>
+              </div>
+              <h3 class="font-display text-[1rem] font-semibold text-[#0d2137] mb-2 tracking-[-0.02em]">{v.title}</h3>
+              <p class="text-[.875rem] text-[#4e647d] leading-[1.68]">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div>
+        <div class="text-center mb-12">
+          <div class="eyebrow-center reveal">The Team</div>
+          <h2 class="font-display text-[2rem] font-bold text-[#0d2137] tracking-[-0.04em] mt-3.5 reveal" data-delay="1">
+            Meet the people behind PatrolPilot
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {team.map((member, i) => (
+            <div class="text-center reveal" data-delay={String(i+1)}>
+              <div class:list={[
+                "w-20 h-20 rounded-full flex items-center justify-center font-display text-[1.4rem] font-bold text-white mx-auto mb-4 bg-gradient-to-br",
+                member.grad
+              ]}>
+                {member.initials}
+              </div>
+              <div class="font-display text-[1rem] font-semibold text-[#0d2137] mb-1">{member.name}</div>
+              <div class="font-mono text-[.58rem] tracking-[.16em] uppercase text-[#1fa84b] mb-3">{member.role}</div>
+              <p class="text-[.875rem] text-[#4e647d] leading-[1.68] max-w-xs mx-auto">{member.bio}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>

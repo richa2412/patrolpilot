@@ -1,0 +1,65 @@
+---
+/**
+ * Layout.astro — Base layout for all pages
+ * Includes BaseHead, Header, Footer, scroll-reveal JS
+ */
+import BaseHead from '@/components/BaseHead.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import '@/styles/global.css';
+import type { YoastSEO } from '@/lib/wordpress';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+  seo?: YoastSEO;
+  type?: 'website' | 'article';
+  publishDate?: string;
+  modifiedDate?: string;
+  author?: string;
+  solidNav?: boolean;
+  noFooter?: boolean;
+}
+
+const {
+  solidNav = false,
+  noFooter = false,
+  ...headProps
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <BaseHead {...headProps} />
+</head>
+<body class="bg-white text-[#0a1628]">
+
+  <Header currentPath={currentPath} solid={solidNav} />
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  {!noFooter && <Footer />}
+
+  <!-- Scroll reveal observer -->
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+---
+/**
+ * Header.astro
+ * Sticky navigation with logo, nav links, CTA buttons, mobile menu
+ * Nav items can be driven by WordPress menu via WP REST API
+ */
+import { NAV_LINKS, SITE } from '@/lib/config';
+
+interface Props {
+  currentPath?: string;
+  /** When true uses a solid navy bg (non-hero pages) */
+  solid?: boolean;
+}
+
+const { currentPath = Astro.url.pathname, solid = false } = Astro.props;
+---
+
+<header
+  class:list={[
+    'site-nav fixed top-0 left-0 right-0 z-[400]',
+    'transition-all duration-300 border-b border-transparent',
+    solid && 'bg-[#0d2137] border-white/[0.07]',
+  ]}
+  id="siteNav"
+>
+  <div class="container mx-auto px-6">
+    <div class="flex items-center gap-6 py-[10px]">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 flex-shrink-0 no-underline group">
+        <div class="w-[60px] h-[60px] rounded-xl bg-white overflow-hidden flex-shrink-0
+                    shadow-[0_2px_10px_rgba(0,0,0,.22)]
+                    transition-transform duration-300 group-hover:scale-105">
+          <img
+            src={SITE.logo}
+            alt={SITE.name}
+            width="58"
+            height="58"
+            class="w-[58px] h-[58px] object-cover"
+            loading="eager"
+          />
+        </div>
+        <div class="flex flex-col leading-none">
+          <span class="font-display text-[19px] font-bold text-white tracking-tight">
+            Patrol<span class="text-[#1fa84b]">Pilot</span>
+          </span>
+          <span class="font-mono text-[7.5px] tracking-[.26em] uppercase text-white/30 mt-1">
+            Security Management
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-0.5 flex-1" aria-label="Primary navigation">
+        {NAV_LINKS.map(({ href, label }) => {
+          const isActive = currentPath === href || currentPath.startsWith(href + '/');
+          return (
+            <a
+              href={href}
+              class:list={[
+                'px-[13px] py-[7px] text-[.875rem] font-medium rounded-lg',
+                'transition-colors duration-200',
+                isActive
+                  ? 'text-white bg-white/10'
+                  : 'text-white/60 hover:text-white hover:bg-white/[0.08]',
+              ]}
+            >
+              {label}
+            </a>
+          );
+        })}
+      </nav>
+
+      <!-- CTA Buttons -->
+      <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+        <a
+          href="/login"
+          class="inline-flex items-center px-4 py-2 text-[.8rem] font-semibold
+                 bg-white/[0.08] text-white/85 border border-white/[0.18]
+                 rounded-[8px] backdrop-blur-md
+                 hover:bg-white/16 hover:border-white/38 hover:text-white
+                 transition-all duration-200"
+        >
+          Log in
+        </a>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 px-4 py-2 text-[.8rem] font-semibold
+                 bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                 text-white rounded-[8px]
+                 shadow-[0_6px_20px_rgba(31,168,75,.3)]
+                 hover:brightness-110 hover:-translate-y-px
+                 transition-all duration-200"
+        >
+          Request Demo
+        </a>
+      </div>
+
+      <!-- Mobile Burger -->
+      <button
+        id="navBurger"
+        class="lg:hidden flex flex-col gap-[5px] bg-transparent border-0 cursor-pointer p-1.5 ml-auto"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span class="block w-[22px] h-[2px] bg-white rounded-full transition-transform duration-300 burger-line-1"></span>
+        <span class="block w-[22px] h-[2px] bg-white rounded-full transition-opacity duration-300 burger-line-2"></span>
+        <span class="block w-[22px] h-[2px] bg-white rounded-full transition-transform duration-300 burger-line-3"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobileMenu"
+    class="fixed inset-0 z-[-1] bg-[rgba(6,14,26,.98)] backdrop-blur-[28px]
+           -translate-x-full transition-transform duration-[380ms] ease-[cubic-bezier(.4,0,.2,1)]
+           flex items-center"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col gap-1 px-8 pt-20 pb-10 w-full">
+      {NAV_LINKS.map(({ href, label }) => (
+        <a
+          href={href}
+          class="font-display text-[1.6rem] font-bold text-white/55 px-4 py-3
+                 rounded-xl tracking-tight
+                 hover:text-white hover:bg-white/[0.06] transition-colors duration-200"
+        >
+          {label}
+        </a>
+      ))}
+      <div class="flex flex-col gap-2.5 mt-6 pt-6 border-t border-white/[0.08]">
+        <a href="/login" class="btn-ghost-white btn-block text-center py-3 rounded-[10px]">Log in</a>
+        <a
+          href="/request-demo"
+          class="text-center py-3 rounded-[10px] font-semibold text-white
+                 bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]"
+        >
+          Request Demo
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('siteNav')!;
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('bg-[rgba(8,18,34,.97)]', window.scrollY > 40);
+    nav.classList.toggle('backdrop-blur-[24px]', window.scrollY > 40);
+    nav.classList.toggle('shadow-[0_4px_32px_rgba(0,0,0,.4)]', window.scrollY > 40);
+    nav.classList.toggle('border-white/[0.07]', window.scrollY > 40);
+  }, { passive: true });
+
+  // Burger toggle
+  const burger = document.getElementById('navBurger')!;
+  const menu   = document.getElementById('mobileMenu')!;
+
+  burger.addEventListener('click', () => {
+    const isOpen = burger.getAttribute('aria-expanded') === 'true';
+    const next   = !isOpen;
+    burger.setAttribute('aria-expanded', String(next));
+    menu.setAttribute('aria-hidden', String(!next));
+
+    // Animate burger to X
+    const [l1, l2, l3] = burger.querySelectorAll('span');
+    if (next) {
+      l1.style.transform = 'translateY(7px) rotate(45deg)';
+      l2.style.opacity   = '0';
+      l3.style.transform = 'translateY(-7px) rotate(-45deg)';
+      menu.style.transform = 'none';
+      document.body.style.overflow = 'hidden';
+    } else {
+      l1.style.transform = '';
+      l2.style.opacity   = '';
+      l3.style.transform = '';
+      menu.style.transform = 'translateX(-100%)';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close on link click
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.style.transform = 'translateX(-100%)';
+      document.body.style.overflow = '';
+    });
+  });
+</script>

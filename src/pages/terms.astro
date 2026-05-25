@@ -1,0 +1,151 @@
+---
+/**
+ * terms.astro — Terms & Conditions
+ * WP: can be managed as a page with slug 'terms' via ACF or classic editor
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+
+const sections = [
+  {
+    id: 'acceptance',
+    title: '1. Acceptance of Terms',
+    content: `These Terms and Conditions ("Terms") govern your access to and use of the PatrolPilot platform, mobile applications, and related services (collectively, the "Services") provided by Engage Workforce Ltd ("Company", "we", "our", or "us"). By creating an account, clicking "I agree," or otherwise accessing or using the Services, you confirm that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.
+
+If you are entering into these Terms on behalf of a company or other legal entity, you represent that you have the authority to bind such entity to these Terms. If you do not agree to these Terms, you must not access or use the Services.`,
+  },
+  {
+    id: 'services',
+    title: '2. Description of Services',
+    content: `PatrolPilot is a cloud-based security workforce management platform that provides: real-time GPS guard tracking and location monitoring; NFC-based checkpoint patrol verification; guard scheduling, rostering and workforce management; security licence and compliance tracking; digital incident reporting; SOS and lone worker safety alerts; analytics, reporting and client portals; guard mobile applications (iOS and Android); and integration with third-party payroll systems.
+
+We reserve the right to modify, suspend, or discontinue any part of the Services at any time with reasonable notice.`,
+  },
+  {
+    id: 'accounts',
+    title: '3. Accounts and Registration',
+    content: `To access the Services, you must create an account. You agree to provide accurate, current, and complete information during registration and to update such information to keep it accurate. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.
+
+You must immediately notify us at legal@patrolpilot.com of any unauthorised use of your account or any other breach of security.`,
+  },
+  {
+    id: 'licence',
+    title: '4. Licence and Permitted Use',
+    content: `Subject to your compliance with these Terms and payment of applicable fees, we grant you a limited, non-exclusive, non-transferable, revocable licence to access and use the Services solely for your internal business purposes.
+
+You agree not to: copy, modify, distribute, sell, or lease any part of the Services; reverse engineer or attempt to extract the source code; use the Services to transmit malicious code; access the Services to build a competing product; or resell or sublicense the Services without written consent.`,
+  },
+  {
+    id: 'data',
+    title: '5. Data, Privacy and Security',
+    content: `You retain ownership of all data you submit to the Services ("Customer Data"). We process personal data in accordance with our Privacy Policy and applicable data protection laws, including GDPR (UK and EU), CCPA (United States), PDPA (Singapore) and UAE Federal Decree-Law No. 45 of 2021 on Personal Data Protection.
+
+Customer Data is stored within your selected regional data centre (US-East, EU-West, ME-Central, or AP-Southeast) and does not leave that jurisdiction without your consent. We implement AES-256 encryption at rest and in transit, role-based access controls, and regular security audits.`,
+  },
+  {
+    id: 'payment',
+    title: '6. Payment Terms and Licensing',
+    content: `Access to the Services is provided on an annual licence basis. Licence fees are based on the maximum number of guards you schedule in any single calendar month during the licence period. Our current licence tiers start at $3,500 per annum.
+
+Fees are invoiced annually in advance. All fees are non-refundable except as required by applicable law. We reserve the right to change pricing with 60 days' written notice. If payment is not received within 30 days of the invoice due date, we reserve the right to suspend access after 14 days' written notice.`,
+  },
+  {
+    id: 'ip',
+    title: '7. Intellectual Property',
+    content: `The Services, including all software, algorithms, user interfaces, designs, logos, and documentation, are owned by Engage Workforce Ltd and protected by copyright, trade mark, and other intellectual property laws. These Terms do not grant you any rights to our intellectual property except for the limited licence described in Section 4.
+
+You retain all intellectual property rights in your Customer Data.`,
+  },
+  {
+    id: 'liability',
+    title: '8. Limitation of Liability',
+    content: `To the maximum extent permitted by applicable law, the Company and its officers, directors, employees, agents, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Services.
+
+Our total cumulative liability shall not exceed the total fees paid by you to us in the twelve months immediately preceding the event giving rise to the claim.`,
+  },
+  {
+    id: 'termination',
+    title: '9. Termination',
+    content: `Either party may terminate the agreement by providing 60 days' written notice prior to the annual renewal date. We may terminate or suspend your account immediately if you materially breach these Terms, fail to make payment, or if we are required to do so by law.
+
+Upon termination, we will retain your Customer Data for 90 days, during which you may request an export. After this period, your data will be permanently deleted.`,
+  },
+  {
+    id: 'governing',
+    title: '10. Governing Law and Dispute Resolution',
+    content: `These Terms shall be governed by the laws of England and Wales. For customers in the United States, disputes shall be resolved by binding arbitration under the American Arbitration Association rules. For customers in Singapore, disputes shall be referred to the Singapore International Arbitration Centre. For customers in the UAE, disputes shall be referred to the Dubai International Arbitration Centre.`,
+  },
+  {
+    id: 'contact-legal',
+    title: '11. Contact Us',
+    content: `If you have any questions about these Terms, please contact us at legal@patrolpilot.com or hello@patrolpilot.com. These Terms were last updated on 1 May 2025.`,
+  },
+];
+---
+
+<Layout
+  title="Terms & Conditions"
+  description="PatrolPilot Terms and Conditions — governing your use of the security guard management platform across the USA, Canada, UK, UAE and Singapore."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Terms &"
+    titleEm="Conditions"
+    sub="Last updated: 1 May 2025 · Effective: 1 May 2025"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-14 items-start">
+
+        <!-- Sticky TOC -->
+        <nav class="hidden lg:block sticky top-[100px] reveal">
+          <div class="font-mono text-[.56rem] tracking-[.22em] uppercase text-[#8599b0] mb-4">Contents</div>
+          <div class="flex flex-col gap-0.5">
+            {sections.map(s => (
+              <a
+                href={`#${s.id}`}
+                class="text-[.875rem] text-[#4e647d] px-3 py-1.5 rounded-[6px] border-l-2 border-transparent
+                       hover:bg-[#f3f6fb] hover:text-[#0d2137] hover:border-[#1fa84b] transition-all duration-200"
+              >
+                {s.title.split('.')[0] + '. ' + s.title.split('. ').slice(1).join('. ')}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <!-- Content -->
+        <article class="reveal">
+          <p class="text-[1rem] text-[#4e647d] leading-[1.8] mb-8">
+            These Terms and Conditions govern your access to and use of the PatrolPilot platform and related services provided by <strong>Engage Workforce Ltd</strong>. By using our Services, you agree to these Terms.
+          </p>
+
+          {sections.map(s => (
+            <div id={s.id} class="mb-10 scroll-mt-[100px]">
+              <h2 class="font-display text-[1.4rem] font-bold text-[#0d2137] tracking-[-0.03em] mb-4 pb-2 border-b border-[#d8e2ef]">
+                {s.title}
+              </h2>
+              {s.content.split('\n\n').map(para => (
+                <p class="text-[.9375rem] text-[#4e647d] leading-[1.8] mb-4 last:mb-0">{para}</p>
+              ))}
+            </div>
+          ))}
+
+          <!-- Contact card -->
+          <div class="mt-10 p-6 bg-[#f3f6fb] rounded-[16px] border border-[#d8e2ef]">
+            <div class="font-mono text-[.57rem] tracking-[.22em] uppercase text-[#8599b0] mb-3">Questions about these Terms?</div>
+            <div class="flex flex-wrap gap-3">
+              <a href="mailto:legal@patrolpilot.com" class="inline-flex items-center gap-2 px-4 py-2 bg-[#0d2137] text-white font-display text-[.875rem] font-semibold rounded-[8px] hover:bg-[#142d4c] transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                legal@patrolpilot.com
+              </a>
+              <a href="/contact" class="inline-flex items-center gap-2 px-4 py-2 border border-[#d8e2ef] text-[#4e647d] font-display text-[.875rem] font-semibold rounded-[8px] hover:border-[#0d2137] hover:text-[#0d2137] hover:bg-white transition-all">
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>

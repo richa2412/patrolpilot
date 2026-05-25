@@ -1,0 +1,201 @@
+---
+/**
+ * how-it-works.astro
+ * Step-by-step onboarding journey with visual mockups
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CTASection from '@/components/CTASection.astro';
+
+const steps = [
+  {
+    num: 'Step 01',
+    title: 'Set up your company profile',
+    desc: 'Add your company details, import guards, upload security licences, and build your site list. Our regional onboarding team will assist you — most companies complete setup in under a day.',
+    badges: ['Bulk guard import', 'Licence upload', 'Site mapping', 'NFC tag placement guide'],
+    visual: 'setup',
+  },
+  {
+    num: 'Step 02',
+    title: 'Build your first schedule',
+    desc: 'Use the drag-and-drop scheduler to assign guards to shifts. The system automatically checks licence validity and overtime rules. Guards receive instant push notifications when rostered.',
+    badges: ['Drag-and-drop', 'Licence auto-check', 'Push notifications', 'Repeat weekly rosters'],
+    visual: 'schedule',
+  },
+  {
+    num: 'Step 03',
+    title: 'Guards use the mobile app',
+    desc: 'Guards download the free PatrolPilot app (iOS & Android), clock in with GPS verification, scan NFC checkpoints on patrol, submit incident reports and activate SOS alerts — all from one app.',
+    badges: ['GPS clock-in', 'NFC checkpoint scan', 'Incident reports', 'SOS one-tap'],
+    visual: 'app',
+  },
+  {
+    num: 'Step 04',
+    title: 'Monitor & report in real time',
+    desc: 'Watch your entire operation from the live dashboard. Generate client patrol reports, compliance summaries and payroll exports with a single click.',
+    badges: ['Live dashboard', 'Client reports', 'Payroll export', 'Compliance summary'],
+    visual: 'monitor',
+  },
+];
+---
+
+<Layout
+  title="How PatrolPilot Works"
+  description="Get your security team up and running in 48 hours. Add guards, build your schedule, deploy the mobile app, then monitor everything in real time."
+>
+  <PageHero
+    eyebrow="Simple Onboarding"
+    title="Get your team up and running"
+    titleEm="in 48 hours."
+    sub="PatrolPilot is designed for quick adoption. Most security companies are fully operational within two days of signing up."
+  >
+    <div class="flex gap-3 flex-wrap mt-6">
+      <a href="/request-demo" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white rounded-[10px] bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c] shadow-[0_6px_20px_rgba(31,168,75,.3)] hover:brightness-110 hover:-translate-y-px transition-all">Book a Demo</a>
+      <a href="/pricing" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white/85 rounded-[10px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/[0.16] hover:text-white transition-all">View Plans</a>
+    </div>
+  </PageHero>
+
+  <!-- Steps -->
+  <section class="section">
+    <div class="container">
+      <div class="space-y-24">
+        {steps.map((step, i) => (
+          <div class:list={[
+            "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
+            i % 2 === 1 && "lg:[direction:rtl]"
+          ]}>
+            <!-- Text -->
+            <div class:list={["reveal reveal-l", i % 2 === 1 && "lg:[direction:ltr] reveal-r"]}>
+              <div class="eyebrow mb-3">{step.num}</div>
+              <h2 class="font-display text-[2.2rem] font-bold text-[#0d2137] tracking-[-0.04em] leading-[1.06] mb-4">{step.title}</h2>
+              <p class="text-[1rem] text-[#4e647d] leading-[1.74] mb-6">{step.desc}</p>
+              <div class="flex flex-wrap gap-2">
+                {step.badges.map(b => (
+                  <span class="sec-badge sec-badge--dark">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Visual card -->
+            <div class:list={["reveal", i % 2 === 1 ? "reveal-l" : "reveal-r", "lg:[direction:ltr]"]} data-delay="1">
+              <div class="bg-[#f3f6fb] rounded-[20px] border border-[#d8e2ef] p-8 shadow-[0_8px_32px_rgba(13,33,55,.06)]">
+                {step.visual === 'setup' && (
+                  <div>
+                    <div class="font-mono text-[.56rem] tracking-[.22em] uppercase text-[#8599b0] mb-4">ONBOARDING CHECKLIST</div>
+                    <div class="space-y-3">
+                      {['Company profile created','Guards imported (24 total)','Sites configured (12 sites)','NFC tags to be placed'].map((item, j) => (
+                        <div class="flex items-center gap-3 bg-white rounded-[10px] border border-[#d8e2ef] px-4 py-3">
+                          <div class:list={[
+                            "w-[22px] h-[22px] rounded-full flex items-center justify-center flex-shrink-0",
+                            j < 3 ? "bg-[#1fa84b]" : "bg-[#e8f8ee] border-[1.5px] border-[#1fa84b]"
+                          ]}>
+                            {j < 3 ? (
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                            ) : (
+                              <div class="w-2 h-2 rounded-full bg-[#1fa84b]"></div>
+                            )}
+                          </div>
+                          <span class:list={["text-[.875rem] font-medium", j < 3 ? "text-[#0d2137]" : "text-[#8599b0]"]}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {step.visual === 'schedule' && (
+                  <div class="bg-[#0d2137] rounded-[14px] p-6">
+                    <div class="font-mono text-[.56rem] tracking-[.22em] uppercase text-white/30 mb-4">WEEKLY ROSTER — WEEK 23</div>
+                    <div class="space-y-2.5">
+                      {[['MON','6AM–2PM','2PM–10PM'],['TUE','6AM–2PM','10PM–6AM'],['WED','OPEN','']].map(([day, s1, s2]) => (
+                        <div class="grid grid-cols-[80px_1fr] gap-3 items-center bg-white/5 rounded-[8px] px-3 py-2.5">
+                          <span class="font-mono text-[.8rem] text-white/60">{day}</span>
+                          <div class="flex gap-1.5 flex-wrap">
+                            {s1 === 'OPEN' ? (
+                              <span class="bg-[rgba(245,158,11,.2)] text-[#f59e0b] border border-[rgba(245,158,11,.3)] text-[.72rem] px-2.5 py-1 rounded font-display font-semibold">OPEN</span>
+                            ) : (
+                              <>
+                                <span class="bg-[#1fa84b] text-white text-[.72rem] px-2.5 py-1 rounded font-display font-semibold">{s1}</span>
+                                {s2 && <span class="bg-[#1a3a60] text-white/70 text-[.72rem] px-2.5 py-1 rounded font-display">{s2}</span>}
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {step.visual === 'app' && (
+                  <div class="flex items-center justify-center">
+                    <div class="w-[200px] bg-[#0d2137] rounded-[28px] border-[6px] border-[#1a3a60] overflow-hidden shadow-[0_24px_64px_rgba(13,33,55,.3)]">
+                      <div class="bg-[#060f1c] px-4 pt-8 pb-4">
+                        <div class="font-mono text-[.52rem] tracking-[.16em] uppercase text-white/30 mb-1">CURRENT SHIFT</div>
+                        <div class="font-display text-white font-bold text-[1.1rem]">CBD Tower — A1</div>
+                        <div class="flex items-center gap-1.5 mt-1">
+                          <div class="w-[6px] h-[6px] rounded-full bg-[#1fa84b]" style="animation:dotPulse 2s ease infinite"></div>
+                          <span class="font-mono text-[.52rem] text-[#1fa84b] uppercase tracking-wider">On duty</span>
+                        </div>
+                      </div>
+                      <div class="px-4 py-4 space-y-2">
+                        {['Clock Out','NFC Patrol','Incident Report','SOS Alert'].map((btn, j) => (
+                          <div class:list={[
+                            "rounded-[8px] px-3 py-2.5 text-center font-display text-[.75rem] font-semibold",
+                            j === 3 ? "bg-[rgba(239,68,68,.15)] text-[#ef4444] border border-[rgba(239,68,68,.3)]" : "bg-white/[0.06] text-white border border-white/[0.08]"
+                          ]}>
+                            {btn}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {step.visual === 'monitor' && (
+                  <div>
+                    <div class="grid grid-cols-3 gap-3 mb-4">
+                      {[{n:'18',l:'On Duty',c:'#1fa84b'},{n:'3',l:'En Route',c:'#f59e0b'},{n:'0',l:'Alerts',c:'#ef4444'}].map(s => (
+                        <div class="bg-white rounded-[10px] border border-[#d8e2ef] p-3 text-center">
+                          <div class="font-display text-[1.6rem] font-bold leading-none" style={`color:${s.c}`}>{s.n}</div>
+                          <div class="font-mono text-[.52rem] tracking-[.14em] uppercase text-[#8599b0] mt-1">{s.l}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div class="bg-white rounded-[10px] border border-[#d8e2ef] p-4">
+                      <div class="font-mono text-[.56rem] tracking-[.2em] uppercase text-[#8599b0] mb-3">RECENT ACTIVITY</div>
+                      {[
+                        {dot:'#1fa84b',text:'Checkpoint scanned — Gate B, Tower 1'},
+                        {dot:'#1fa84b',text:'Guard clocked in — Site 3'},
+                        {dot:'#f59e0b',text:'Patrol report submitted — Mall East'},
+                      ].map(item => (
+                        <div class="flex items-center gap-2.5 py-2 border-b border-[#f3f6fb] last:border-0">
+                          <div class="w-[7px] h-[7px] rounded-full flex-shrink-0" style={`background:${item.dot}`}></div>
+                          <span class="text-[.82rem] text-[#4e647d]">{item.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Step progress bar -->
+  <section class="section-sm bg-[#f3f6fb] border-t border-[#d8e2ef]">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-0 border border-[#d8e2ef] rounded-[16px] overflow-hidden reveal">
+        {steps.map((step, i) => (
+          <div class:list={["px-6 py-5 bg-white relative", i < steps.length - 1 && "border-r border-[#d8e2ef]"]}>
+            <div class="font-mono text-[.55rem] tracking-[.22em] uppercase text-[#1fa84b] mb-1">{step.num}</div>
+            <div class="font-display text-[.9rem] font-semibold text-[#0d2137]">{step.title}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>

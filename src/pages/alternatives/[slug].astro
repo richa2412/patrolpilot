@@ -1,0 +1,145 @@
+---
+/**
+ * alternatives/[slug].astro
+ * Dynamic competitor comparison pages
+ * Slugs: guardhouse, tracktik, belfry
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CTASection from '@/components/CTASection.astro';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: 'guardhouse' },
+      props: {
+        competitor: 'Guardhouse',
+        tagline: 'The alternative with better GPS tracking, NFC checkpoints and regional data hosting.',
+        rows: [
+          { feat:'GPS Live Guard Tracking', pp:'Full real-time tracking, 30-sec intervals', them:'Basic tracking, limited history' },
+          { feat:'NFC Checkpoint Patrols', pp:'Full NFC with auto-report generation', them:'Manual checkpoint check-in only' },
+          { feat:'Licence Compliance', pp:'Auto-checks all licence types, blocks expired', them:'Manual licence management' },
+          { feat:'Regional Data Hosting', pp:'In-country: US, UK, UAE, Singapore', them:'US-based hosting only' },
+          { feat:'Mobile Guard App', pp:'iOS + Android, full offline mode', them:'iOS only, limited offline' },
+          { feat:'Client Patrol Reports', pp:'Auto-generated, white-label portal', them:'Manual report creation' },
+          { feat:'Payroll Integration', pp:'ADP, QuickBooks, Xero, Sage', them:'Xero only, add-on cost' },
+          { feat:'Regional Support Team', pp:'USA, UK, UAE, Singapore teams', them:'US-based support team' },
+          { feat:'Pricing', pp:'From $3,500/yr — transparent', them:'From $4,800/yr + add-ons' },
+        ],
+      },
+    },
+    {
+      params: { slug: 'tracktik' },
+      props: {
+        competitor: 'TrackTik',
+        tagline: 'Purpose-built for your region — simpler, more affordable, with local support.',
+        rows: [
+          { feat:'Regional Data Hosting', pp:'In-country: US, UK, UAE, Singapore', them:'Canadian data centres' },
+          { feat:'Pricing', pp:'From $3,500/yr — no per-module cost', them:'Complex modular pricing from $6,000+/yr' },
+          { feat:'NFC Checkpoint Tours', pp:'Included in all plans', them:'Add-on module, additional cost' },
+          { feat:'Onboarding Time', pp:'48 hours with regional support', them:'Weeks of enterprise onboarding' },
+          { feat:'Guard Mobile App', pp:'Simple, purpose-built guard app', them:'Feature-heavy, steep learning curve' },
+          { feat:'Payroll Integration', pp:'ADP, QuickBooks, Xero, Sage', them:'International payroll systems' },
+          { feat:'Local Compliance', pp:'GDPR, CCPA, PDPA, UAE PDPL', them:'Generic compliance framework' },
+          { feat:'Customer Support', pp:'Regional teams, fast response', them:'International support queue' },
+        ],
+      },
+    },
+    {
+      params: { slug: 'belfry' },
+      props: {
+        competitor: 'Belfry',
+        tagline: 'A complete alternative with NFC tours, GPS tracking and true regional data hosting.',
+        rows: [
+          { feat:'GPS Guard Tracking', pp:'Real-time, 30-second intervals', them:'Real-time tracking available' },
+          { feat:'NFC Checkpoint Tours', pp:'Included, auto-report generation', them:'Available, manual reporting' },
+          { feat:'Regional Data Hosting', pp:'In-country: US, UK, UAE, Singapore', them:'US-based hosting' },
+          { feat:'Pricing', pp:'From $3,500/yr transparent tiers', them:'Per-guard pricing escalates quickly' },
+          { feat:'Licence Compliance', pp:'Automated checks and alerts', them:'Manual tracking required' },
+          { feat:'Client Portal', pp:'White-label portal included', them:'Basic client reporting' },
+          { feat:'Payroll Integration', pp:'ADP, QuickBooks, Xero, Sage', them:'Limited regional payroll' },
+          { feat:'Regional Support', pp:'USA, UK, UAE, Singapore teams', them:'US-based support only' },
+        ],
+      },
+    },
+  ];
+}
+
+interface Row { feat: string; pp: string; them: string }
+interface Props {
+  competitor: string;
+  tagline: string;
+  rows: Row[];
+}
+
+const { competitor, tagline, rows } = Astro.props;
+---
+
+<Layout
+  title={`PatrolPilot vs ${competitor} | Security Guard Software Comparison`}
+  description={`Detailed comparison of PatrolPilot vs ${competitor} for security companies in the USA, Canada, UK, UAE and Singapore. ${tagline}`}
+>
+  <PageHero
+    eyebrow="Comparison"
+    title={`PatrolPilot vs`}
+    titleEm={competitor}
+    sub={tagline}
+  >
+    <div class="flex gap-3 flex-wrap mt-6">
+      <a href="/request-demo" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white rounded-[10px] bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c] shadow-[0_6px_20px_rgba(31,168,75,.3)] hover:brightness-110 hover:-translate-y-px transition-all">Try PatrolPilot Free</a>
+      <a href="/pricing" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white/85 rounded-[10px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/[0.16] hover:text-white transition-all">View Pricing</a>
+    </div>
+  </PageHero>
+
+  <!-- Comparison table -->
+  <section class="section">
+    <div class="container">
+      <div class="overflow-x-auto rounded-[16px] border border-[#d8e2ef] reveal">
+        <table class="w-full border-collapse text-[.875rem]">
+          <thead>
+            <tr>
+              <th class="px-5 py-3.5 text-left font-mono text-[.57rem] tracking-[.2em] uppercase text-[#8599b0] bg-[#f3f6fb] border-b border-[#d8e2ef] w-[38%]">Feature</th>
+              <th class="px-5 py-3.5 text-left font-mono text-[.57rem] tracking-[.2em] uppercase text-[#1fa84b] bg-[rgba(31,168,75,.07)] border-b border-[#d8e2ef]">PatrolPilot</th>
+              <th class="px-5 py-3.5 text-left font-mono text-[.57rem] tracking-[.2em] uppercase text-[#8599b0] bg-[#f3f6fb] border-b border-[#d8e2ef]">{competitor}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr class="hover:bg-[#f3f6fb] transition-colors border-b border-[#d8e2ef] last:border-0">
+                <td class="px-5 py-3.5 font-medium text-[#0a1628]">{row.feat}</td>
+                <td class="px-5 py-3.5 bg-[rgba(31,168,75,.04)] font-semibold text-[#0d2137]">
+                  <span class="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5" class="flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                    {row.pp}
+                  </span>
+                </td>
+                <td class="px-5 py-3.5 text-[#4e647d]">{row.them}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Migration CTA -->
+      <div class="text-center mt-14 reveal">
+        <h2 class="font-display text-[2rem] font-bold text-[#0d2137] tracking-[-0.04em] mb-4">
+          Ready to make the switch?
+        </h2>
+        <p class="text-[1rem] text-[#4e647d] max-w-[480px] mx-auto mb-8 leading-[1.7]">
+          Migration from {competitor} is straightforward. Our regional team helps you import your data and get running within 48 hours.
+        </p>
+        <a
+          href="/request-demo"
+          class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white rounded-[12px]
+                 bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                 shadow-[0_6px_20px_rgba(31,168,75,.3)]
+                 hover:brightness-110 hover:-translate-y-0.5 transition-all"
+        >
+          Book a Free Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>

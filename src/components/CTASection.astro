@@ -1,0 +1,61 @@
+---
+/**
+ * CTASection.astro
+ * Bottom-of-page call-to-action used on all pages
+ */
+interface Props {
+  title?: string;
+  sub?: string;
+  blogPrefix?: string;
+}
+
+const {
+  title = "Ready to modernise your security operations?",
+  sub   = "Join 500+ security companies across the USA, Canada, UK, UAE and Singapore using PatrolPilot.",
+  blogPrefix = "",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden py-[110px] text-center" style="background:linear-gradient(135deg,#07111f,#0d2137,#0f2948)">
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(31,168,75,.1) 0%,transparent 65%)"></div>
+  <div class="absolute inset-0" style="background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:56px 56px"></div>
+  <div class="container relative z-10">
+    <div class="eyebrow-center reveal">Get Started Today</div>
+    <h2
+      class="font-display font-bold text-white tracking-[-0.05em] leading-[.96] mx-auto mt-4 mb-5 reveal"
+      style="font-size:clamp(2.2rem,4vw,3.6rem);max-width:640px"
+      data-delay="1"
+    >
+      {title}
+    </h2>
+    <p class="text-[1rem] text-white/40 max-w-[520px] mx-auto mb-9 leading-[1.74] font-light reveal" data-delay="2">{sub}</p>
+    <div class="flex items-center justify-center gap-3 flex-wrap reveal" data-delay="3">
+      <a
+        href={`${blogPrefix}/request-demo`}
+        class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white rounded-[12px]
+               bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+               shadow-[0_6px_20px_rgba(31,168,75,.3)]
+               hover:brightness-110 hover:-translate-y-0.5 transition-all"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+        Book a Free Demo
+      </a>
+      <a
+        href={`${blogPrefix}/pricing`}
+        class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white/85 rounded-[12px]
+               bg-white/[0.08] border border-white/[0.18] backdrop-blur-lg
+               hover:bg-white/[0.16] hover:border-white/[0.38] hover:text-white transition-all"
+      >
+        View Pricing
+      </a>
+    </div>
+    <div class="flex items-center justify-center gap-6 flex-wrap mt-7 reveal" data-delay="4">
+      {["No setup fees","14-day free trial","Local support in your region","Cancel anytime"].map(t => (
+        <span class="flex items-center gap-1.5 font-mono text-[.58rem] tracking-[.15em] uppercase text-white/35">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

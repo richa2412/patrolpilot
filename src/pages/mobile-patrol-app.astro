@@ -1,0 +1,66 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CTASection from '@/components/CTASection.astro';
+import SolutionPage from '@/components/SolutionPage.astro';
+---
+
+<SolutionPage
+  metaTitle="Mobile Patrol App for Security Guards | iOS & Android | PatrolPilot"
+  metaDesc="The PatrolPilot guard app gives your team everything they need on shift — GPS clock-in, NFC patrols, incident reports, SOS and offline mode. Free for all guards."
+  eyebrow="Mobile App"
+  heroTitle="Mobile Patrol App"
+  heroEm="For security guards."
+  heroSub="The PatrolPilot guard app gives your team everything they need on shift — clock-in, NFC patrols, incident reports, SOS and more. Free on iOS and Android."
+  intro="The PatrolPilot mobile app is purpose-built for security guards working in the field. Available on iOS and Android at no additional cost, the app provides guards with all the tools they need to perform their duties while giving operations managers complete real-time visibility. Designed for security companies in the USA, Canada, UK, UAE and Singapore."
+  features={[
+    {
+      title: 'GPS Clock In/Out',
+      desc: 'Guards clock in and out using their phone\'s GPS. Location is verified against the site geofence to prevent buddy-punching and false clock-ins.',
+      icon: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z',
+    },
+    {
+      title: 'NFC Checkpoint Scanning',
+      desc: 'Tap NFC tags to verify patrol rounds. Works offline — scans are stored on device and sync when connection is restored.',
+      icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4',
+    },
+    {
+      title: 'One-Tap SOS Alert',
+      desc: 'Guards press the SOS button to instantly alert supervisors with their exact GPS location. Critical for lone worker safety in high-risk environments.',
+      icon: 'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07',
+    },
+    {
+      title: 'Digital Incident Reports',
+      desc: 'Structured report forms with photo capture, signature fields and auto-filled location data. Submitted instantly to the office from the field.',
+      icon: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z',
+    },
+    {
+      title: 'Shift Notifications',
+      desc: 'Guards receive push notifications for new shifts, schedule changes, site instructions and important alerts from supervisors.',
+      icon: 'M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9',
+    },
+    {
+      title: 'Full Offline Mode',
+      desc: 'The app functions in underground car parks, tunnels and low-signal environments. All data queues and syncs automatically when connectivity is restored.',
+      icon: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z',
+    },
+  ]}
+  faqs={[
+    {
+      q: 'Is the app available on both iOS and Android?',
+      a: 'Yes. The PatrolPilot guard app is available on both the Apple App Store and Google Play Store. It supports iPhone 8 and above (iOS 14+) and Android 9.0 and above.',
+    },
+    {
+      q: 'Does the app work without internet connection?',
+      a: 'Yes. The app has full offline mode for NFC checkpoint scans, incident reports and clock-in/out. Data syncs automatically when connectivity is restored.',
+    },
+    {
+      q: 'Is there a cost for the guard mobile app?',
+      a: 'No. The guard mobile app is included in all PatrolPilot plans at no additional cost. There is no per-device or per-guard app fee.',
+    },
+    {
+      q: 'What languages does the app support?',
+      a: 'The app currently supports English. Additional language support is on our roadmap — contact our team if you have specific language requirements.',
+    },
+  ]}
+/>

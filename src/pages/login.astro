@@ -1,0 +1,255 @@
+---
+/**
+ * login.astro — Login page
+ * Uses AuthLayout (no nav/footer, centred card)
+ */
+import AuthLayout from '@/layouts/AuthLayout.astro';
+---
+
+<AuthLayout title="Log In" description="Sign in to your PatrolPilot security management account.">
+
+  <!-- Card title slot -->
+  <Fragment slot="card-title">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:-.035em;margin-bottom:5px">
+      Welcome back
+    </div>
+    <div style="font-size:.875rem;color:rgba(255,255,255,.45);font-weight:300">
+      Sign in to your PatrolPilot account
+    </div>
+  </Fragment>
+
+  <!-- Form -->
+  <form id="loginForm" class="space-y-[18px]" novalidate>
+
+    <!-- Email -->
+    <div class="form-field">
+      <label class="form-label" for="email">Email Address</label>
+      <div class="relative">
+        <input type="email" id="email" name="email" autocomplete="email"
+               placeholder="you@company.com" required
+               class="form-input pr-11"
+               aria-describedby="email-error" />
+        <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8599b0] pointer-events-none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </span>
+      </div>
+      <p id="email-error" class="text-[.78rem] text-[#b91c1c] mt-1 hidden" role="alert"></p>
+    </div>
+
+    <!-- Password -->
+    <div class="form-field">
+      <div class="flex justify-between items-center">
+        <label class="form-label" for="password">Password</label>
+        <a href="/forgot-password" class="text-[.84rem] text-[#8599b0] hover:text-[#1fa84b] transition-colors">
+          Forgot password?
+        </a>
+      </div>
+      <div class="relative">
+        <input type="password" id="password" name="password" autocomplete="current-password"
+               placeholder="Enter your password" required
+               class="form-input pr-11"
+               aria-describedby="password-error" />
+        <button type="button" id="togglePwd" aria-label="Show password"
+                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8599b0] hover:text-[#0d2137] transition-colors bg-transparent border-0 p-0 cursor-pointer">
+          <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <p id="password-error" class="text-[.78rem] text-[#b91c1c] mt-1 hidden" role="alert"></p>
+    </div>
+
+    <!-- Remember me -->
+    <label class="flex items-start gap-2.5 cursor-pointer">
+      <input type="checkbox" name="remember" checked
+             class="w-4 h-4 mt-0.5 accent-[#1fa84b] flex-shrink-0 cursor-pointer" />
+      <span class="text-[.84rem] text-[#4e647d] leading-snug">Keep me signed in for 30 days</span>
+    </label>
+
+    <!-- Error alert (shown on submit fail) -->
+    <div id="loginError" class="hidden p-3 rounded-[10px] bg-[#fef2f2] border border-[#fecaca] text-[.875rem] text-[#b91c1c] flex items-start gap-2.5" role="alert">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flex-shrink-0 mt-0.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span id="loginErrorMsg">Invalid email or password.</span>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" id="submitBtn"
+            class="w-full py-3.5 font-display text-[.95rem] font-semibold text-white rounded-[10px]
+                   bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                   shadow-[0_6px_20px_rgba(31,168,75,.3)]
+                   hover:brightness-110 hover:-translate-y-px hover:shadow-[0_10px_32px_rgba(31,168,75,.42)]
+                   active:scale-[.98] transition-all duration-200
+                   disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden">
+      <span id="submitText" class="flex items-center justify-center gap-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        Sign In to PatrolPilot
+      </span>
+      <span id="submitSpinner" class="hidden absolute inset-0 flex items-center justify-center">
+        <svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-3 text-[.8rem] text-[#8599b0] font-mono tracking-[.1em]">
+      <div class="flex-1 h-px bg-[#d8e2ef]"></div>
+      or
+      <div class="flex-1 h-px bg-[#d8e2ef]"></div>
+    </div>
+
+    <!-- Create account -->
+    <a href="/signup"
+       class="block text-center w-full py-3 font-display text-[.875rem] font-semibold text-[#0d2137]
+              border-[1.5px] border-[#d8e2ef] rounded-[10px]
+              hover:border-[#0d2137] hover:bg-[#f3f6fb] transition-all">
+      Create a new account
+    </a>
+
+  </form>
+
+  <!-- Security badges -->
+  <div class="flex justify-center gap-2 flex-wrap mt-5">
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      AES-256
+    </span>
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      ISO 27001
+    </span>
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      SOC 2
+    </span>
+  </div>
+
+  <p class="text-center text-[.84rem] text-[#8599b0] mt-4">
+    Don't have an account?
+    <a href="/signup" class="text-[#1fa84b] font-semibold hover:text-[#178a3c] hover:underline transition-colors">
+      Sign up free
+    </a>
+  </p>
+
+</AuthLayout>
+
+<style>
+  .form-label {
+    font-family: 'Space Mono', monospace;
+    font-size: .57rem; letter-spacing: .22em;
+    text-transform: uppercase; color: #1a3a60;
+    display: block; margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%; padding: 11px 14px;
+    background: #f3f6fb; border: 1.5px solid #d8e2ef;
+    border-radius: 10px; font-size: .9rem; color: #0a1628;
+    font-family: 'Outfit', sans-serif;
+    outline: none; transition: border-color .22s, box-shadow .22s, background .22s;
+  }
+  .form-input:focus {
+    border-color: #1fa84b;
+    box-shadow: 0 0 0 3px rgba(31,168,75,.1);
+    background: #fff;
+  }
+  .form-input::placeholder { color: #8599b0; }
+  .form-input.error { border-color: #ef4444; }
+  .form-field { display: flex; flex-direction: column; }
+</style>
+
+<script>
+  // Toggle password visibility
+  const pwdInput = document.getElementById('password') as HTMLInputElement;
+  const toggleBtn = document.getElementById('togglePwd')!;
+  const eyeIcon = document.getElementById('eyeIcon')!;
+
+  toggleBtn?.addEventListener('click', () => {
+    const show = pwdInput.type === 'password';
+    pwdInput.type = show ? 'text' : 'password';
+    eyeIcon.innerHTML = show
+      ? `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`
+      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+  });
+
+  // Form validation & submission
+  const form = document.getElementById('loginForm') as HTMLFormElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const submitText = document.getElementById('submitText')!;
+  const submitSpinner = document.getElementById('submitSpinner')!;
+  const errorBox = document.getElementById('loginError')!;
+  const errorMsg = document.getElementById('loginErrorMsg')!;
+
+  function setLoading(loading: boolean) {
+    submitBtn.disabled = loading;
+    submitText.classList.toggle('hidden', loading);
+    submitSpinner.classList.toggle('hidden', !loading);
+  }
+
+  function showError(msg: string) {
+    errorMsg.textContent = msg;
+    errorBox.classList.remove('hidden');
+  }
+
+  function clearError() {
+    errorBox.classList.add('hidden');
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+
+    if (!email || !password) {
+      showError('Please enter your email and password.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      /**
+       * WordPress JWT Authentication
+       * POST /wp-json/jwt-auth/v1/token
+       * Returns: { token, user_email, user_nicename, user_display_name }
+       *
+       * Required plugin: JWT Authentication for WP REST API
+       * wp-config.php: define('JWT_AUTH_SECRET_KEY', 'your-secret');
+       *                define('JWT_AUTH_CORS_ENABLE', true);
+       */
+      const res = await fetch(`${import.meta.env.WP_API_URL || 'https://cms.patrolpilot.com'}/wp-json/jwt-auth/v1/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: email, password }),
+      });
+
+      if (res.ok) {
+        const data = await res.json() as { token: string; user_email: string };
+        // Store JWT token
+        sessionStorage.setItem('pp_token', data.token);
+        sessionStorage.setItem('pp_email', data.user_email);
+        // Redirect to app
+        window.location.href = 'https://app.patrolpilot.com/dashboard';
+      } else {
+        const err = await res.json() as { message?: string };
+        showError(err.message || 'Invalid email or password. Please try again.');
+      }
+    } catch {
+      showError('Unable to connect. Please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
+  });
+</script>

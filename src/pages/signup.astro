@@ -1,0 +1,255 @@
+---
+/**
+ * signup.astro — Create account page
+ */
+import AuthLayout from '@/layouts/AuthLayout.astro';
+---
+
+<AuthLayout title="Create Account" description="Start your 14-day free trial — no credit card required.">
+
+  <Fragment slot="card-title">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;color:#fff;letter-spacing:-.035em;margin-bottom:5px">
+      Create your account
+    </div>
+    <div style="font-size:.875rem;color:rgba(255,255,255,.45);font-weight:300">
+      Start your 14-day free trial — no credit card required
+    </div>
+  </Fragment>
+
+  <style>
+    .form-label { font-family:'Space Mono',monospace;font-size:.57rem;letter-spacing:.22em;text-transform:uppercase;color:#1a3a60;display:block;margin-bottom:6px }
+    .form-input,.form-select { width:100%;padding:11px 14px;background:#f3f6fb;border:1.5px solid #d8e2ef;border-radius:10px;font-size:.9rem;color:#0a1628;font-family:'Outfit',sans-serif;outline:none;transition:border-color .22s,box-shadow .22s,background .22s }
+    .form-input:focus,.form-select:focus { border-color:#1fa84b;box-shadow:0 0 0 3px rgba(31,168,75,.1);background:#fff }
+    .form-input::placeholder { color:#8599b0 }
+    .form-field { display:flex;flex-direction:column }
+    .form-grid-2 { display:grid;grid-template-columns:1fr 1fr;gap:14px }
+    .pwd-strength { height:3px;border-radius:2px;background:#e8edf6;margin-top:6px;overflow:hidden }
+    .pwd-bar { height:100%;border-radius:2px;transition:width .4s,background .4s;width:0% }
+    .pwd-label { font-size:.75rem;color:#8599b0;margin-top:3px }
+    @media(max-width:440px) { .form-grid-2 { grid-template-columns:1fr } }
+  </style>
+
+  <form id="signupForm" class="space-y-[16px]" novalidate>
+    <div class="form-grid-2">
+      <div class="form-field">
+        <label class="form-label">First Name *</label>
+        <input type="text" name="fname" class="form-input" placeholder="Alex" autocomplete="given-name" required />
+      </div>
+      <div class="form-field">
+        <label class="form-label">Last Name *</label>
+        <input type="text" name="lname" class="form-input" placeholder="Johnson" autocomplete="family-name" required />
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Work Email *</label>
+      <div class="relative">
+        <input type="email" name="email" class="form-input pr-10" placeholder="alex@yourcompany.com" autocomplete="email" required />
+        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8599b0] pointer-events-none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Company Name *</label>
+      <input type="text" name="company" class="form-input" placeholder="Metro Security Services" autocomplete="organization" required />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Country *</label>
+      <select name="country" class="form-select" required>
+        <option value="">Select your country...</option>
+        <option value="us">🇺🇸 United States</option>
+        <option value="ca">🇨🇦 Canada</option>
+        <option value="gb">🇬🇧 United Kingdom</option>
+        <option value="ae">🇦🇪 UAE</option>
+        <option value="sg">🇸🇬 Singapore</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Password *</label>
+      <div class="relative">
+        <input type="password" id="signupPwd" name="password" class="form-input pr-10"
+               placeholder="Min 8 characters" autocomplete="new-password" required
+               oninput="checkStrength(this.value)" />
+        <button type="button" onclick="togglePwd('signupPwd',this)" aria-label="Show password"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8599b0] hover:text-[#0d2137] bg-transparent border-0 p-0 cursor-pointer transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <div class="pwd-strength"><div class="pwd-bar" id="pwdBar"></div></div>
+      <div class="pwd-label" id="pwdLabel"></div>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Confirm Password *</label>
+      <div class="relative">
+        <input type="password" id="confirmPwd" name="confirm" class="form-input pr-10"
+               placeholder="Re-enter your password" autocomplete="new-password" required />
+        <button type="button" onclick="togglePwd('confirmPwd',this)" aria-label="Show password"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8599b0] hover:text-[#0d2137] bg-transparent border-0 p-0 cursor-pointer transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <label class="flex items-start gap-2.5 cursor-pointer">
+      <input type="checkbox" name="terms" required class="w-4 h-4 mt-0.5 accent-[#1fa84b] flex-shrink-0 cursor-pointer" />
+      <span class="text-[.84rem] text-[#4e647d] leading-snug">
+        I agree to the
+        <a href="/terms" class="text-[#1fa84b] font-semibold hover:underline">Terms &amp; Conditions</a>
+        and
+        <a href="/privacy" class="text-[#1fa84b] font-semibold hover:underline">Privacy Policy</a>
+      </span>
+    </label>
+
+    <label class="flex items-start gap-2.5 cursor-pointer">
+      <input type="checkbox" name="marketing" checked class="w-4 h-4 mt-0.5 accent-[#1fa84b] flex-shrink-0 cursor-pointer" />
+      <span class="text-[.84rem] text-[#4e647d] leading-snug">Send me product updates and security industry insights</span>
+    </label>
+
+    <!-- Error message -->
+    <div id="signupError" class="hidden p-3 rounded-[10px] bg-[#fef2f2] border border-[#fecaca] text-[.875rem] text-[#b91c1c]" role="alert">
+      <span id="signupErrorMsg"></span>
+    </div>
+
+    <button type="submit" id="signupBtn"
+            class="w-full py-3.5 font-display text-[.95rem] font-semibold text-white rounded-[10px]
+                   bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                   shadow-[0_6px_20px_rgba(31,168,75,.3)]
+                   hover:brightness-110 hover:-translate-y-px transition-all duration-200
+                   disabled:opacity-60 disabled:cursor-not-allowed">
+      Create Free Account
+    </button>
+  </form>
+
+  <div class="flex justify-center gap-2 flex-wrap mt-4">
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      14-day free trial
+    </span>
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      No credit card
+    </span>
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 border border-[#d8e2ef] rounded text-[.55rem] font-mono tracking-[.15em] uppercase text-[#8599b0] bg-[#f3f6fb]">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      AES-256
+    </span>
+  </div>
+
+  <p class="text-center text-[.84rem] text-[#8599b0] mt-4">
+    Already have an account?
+    <a href="/login" class="text-[#1fa84b] font-semibold hover:underline">Sign in</a>
+  </p>
+
+</AuthLayout>
+
+<script>
+  function togglePwd(id: string, btn: HTMLButtonElement) {
+    const input = document.getElementById(id) as HTMLInputElement;
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.innerHTML = show
+      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`
+      : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  }
+
+  function checkStrength(val: string) {
+    const bar = document.getElementById('pwdBar') as HTMLElement;
+    const lbl = document.getElementById('pwdLabel') as HTMLElement;
+    const rules = [/.{8,}/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/];
+    const score = rules.filter(r => r.test(val)).length;
+    const map: Record<number,[string,string,string]> = {
+      0: ['0%','#e5e7eb',''],
+      1: ['25%','#ef4444','Weak'],
+      2: ['50%','#f59e0b','Fair'],
+      3: ['75%','#3b82f6','Good'],
+      4: ['100%','#1fa84b','Strong'],
+    };
+    bar.style.width = map[score][0];
+    bar.style.background = map[score][1];
+    lbl.textContent = map[score][2];
+    lbl.style.color = map[score][1];
+  }
+
+  // Form submission
+  document.getElementById('signupForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+    const errorBox = document.getElementById('signupError')!;
+    const errorMsg = document.getElementById('signupErrorMsg')!;
+    const btn = document.getElementById('signupBtn') as HTMLButtonElement;
+
+    if (data.get('password') !== data.get('confirm')) {
+      errorMsg.textContent = 'Passwords do not match.';
+      errorBox.classList.remove('hidden');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Creating account...';
+
+    try {
+      /**
+       * WordPress Registration via custom REST endpoint
+       * POST /wp-json/patrolpilot/v1/register
+       *
+       * This requires a custom plugin or functions.php addition in WordPress:
+       *
+       * add_action('rest_api_init', function() {
+       *   register_rest_route('patrolpilot/v1', '/register', [
+       *     'methods' => 'POST',
+       *     'callback' => 'pp_register_user',
+       *     'permission_callback' => '__return_true',
+       *   ]);
+       * });
+       *
+       * function pp_register_user(WP_REST_Request $request) {
+       *   $email    = sanitize_email($request->get_param('email'));
+       *   $password = $request->get_param('password');
+       *   $company  = sanitize_text_field($request->get_param('company'));
+       *   $country  = sanitize_text_field($request->get_param('country'));
+       *   // Create WP user, trigger 14-day trial, send welcome email
+       *   $user_id = wp_create_user(sanitize_title($email), $password, $email);
+       *   // ... add user meta, send to app ...
+       *   return new WP_REST_Response(['success' => true], 200);
+       * }
+       */
+      const res = await fetch(`${import.meta.env.WP_API_URL || 'https://cms.patrolpilot.com'}/wp-json/patrolpilot/v1/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: data.get('fname'),
+          last_name: data.get('lname'),
+          email: data.get('email'),
+          password: data.get('password'),
+          company: data.get('company'),
+          country: data.get('country'),
+        }),
+      });
+
+      if (res.ok) {
+        window.location.href = '/login?registered=1';
+      } else {
+        const err = await res.json() as { message?: string };
+        errorMsg.textContent = err.message || 'Registration failed. Please try again.';
+        errorBox.classList.remove('hidden');
+      }
+    } catch {
+      errorMsg.textContent = 'Unable to connect. Please try again.';
+      errorBox.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Create Free Account';
+    }
+  });
+</script>

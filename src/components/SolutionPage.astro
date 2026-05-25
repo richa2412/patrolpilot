@@ -1,0 +1,105 @@
+---
+/**
+ * SolutionPage.astro
+ * Shared template for all SEO solution pages:
+ * guard-management, scheduling, rostering, guard-tours, mobile-patrol-app
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+import CTASection from '@/components/CTASection.astro';
+
+interface Feature {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+interface FAQ {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  metaTitle: string;
+  metaDesc: string;
+  eyebrow: string;
+  heroTitle: string;
+  heroEm: string;
+  heroSub: string;
+  intro: string;
+  features: Feature[];
+  faqs: FAQ[];
+}
+
+const { metaTitle, metaDesc, eyebrow, heroTitle, heroEm, heroSub, intro, features, faqs } = Astro.props;
+---
+
+<Layout title={metaTitle} description={metaDesc}>
+
+  <PageHero eyebrow={eyebrow} title={heroTitle} titleEm={heroEm} sub={heroSub}>
+    <div class="flex gap-3 flex-wrap mt-6">
+      <a href="/request-demo" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white rounded-[10px] bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c] shadow-[0_6px_20px_rgba(31,168,75,.3)] hover:brightness-110 hover:-translate-y-px transition-all">Book a Free Demo</a>
+      <a href="/pricing" class="inline-flex items-center gap-2 px-7 py-3.5 font-display text-[.9rem] font-semibold text-white/85 rounded-[10px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/[0.16] hover:text-white transition-all">View Pricing</a>
+    </div>
+  </PageHero>
+
+  <!-- Intro + Features -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-[760px] mx-auto mb-14">
+        <p class="text-[1.05rem] text-[#4e647d] leading-[1.8]">{intro}</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+        {features.map((f, i) => (
+          <div
+            class="bg-white rounded-[16px] border border-[#d8e2ef] p-7 relative overflow-hidden group
+                   hover:border-[rgba(31,168,75,.2)] hover:shadow-[0_8px_32px_rgba(13,33,55,.1)] hover:-translate-y-1
+                   transition-all duration-[.24s] reveal"
+            data-delay={String((i % 3) + 1)}
+          >
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#1fa84b] to-[#178a3c] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-[.35s]"></div>
+            <div class="w-[46px] h-[46px] rounded-[12px] bg-[#e8f8ee] flex items-center justify-center mb-4 group-hover:bg-[#1fa84b] transition-colors">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1fa84b" stroke-width="2" class="group-hover:stroke-white transition-colors">
+                <path d={f.icon} />
+              </svg>
+            </div>
+            <h3 class="font-display text-[1.02rem] font-semibold text-[#0d2137] tracking-[-0.022em] mb-2.5">{f.title}</h3>
+            <p class="text-[.875rem] text-[#4e647d] leading-[1.7]">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-[#f3f6fb]">
+    <div class="container container-sm">
+      <h2 class="font-display text-[1.8rem] font-bold text-[#0d2137] tracking-[-0.04em] text-center mb-8 reveal">
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-2">
+        {faqs.map((faq, i) => (
+          <details
+            class="bg-white border border-[#d8e2ef] rounded-[10px] overflow-hidden
+                   open:border-[rgba(31,168,75,.28)] transition-colors reveal"
+            data-delay={String((i % 3) + 1)}
+          >
+            <summary class="flex justify-between items-center px-5 py-4 cursor-pointer
+                           font-display text-[.95rem] font-semibold text-[#0d2137]
+                           hover:bg-[#f3f6fb] select-none list-none [&::-webkit-details-marker]:hidden">
+              {faq.q}
+              <span class="text-[1.3rem] text-[#1fa84b] flex-shrink-0 font-mono transition-transform duration-200 details-plus">+</span>
+            </summary>
+            <div class="px-5 pb-5 text-[.875rem] text-[#4e647d] leading-[1.72]">{faq.a}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>
+
+<style>
+  details[open] .details-plus { transform: rotate(45deg); }
+</style>

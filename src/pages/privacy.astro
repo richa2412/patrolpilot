@@ -1,0 +1,103 @@
+---
+/**
+ * privacy.astro — Privacy Policy
+ */
+import Layout from '@/layouts/Layout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+
+<Layout
+  title="Privacy Policy"
+  description="PatrolPilot Privacy Policy — how we collect, use and protect your data across the USA, Canada, UK, UAE and Singapore."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy"
+    titleEm="Policy"
+    sub="Last updated: 1 May 2025 · We are committed to protecting your personal data across all regions we operate in."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-14 items-start">
+
+        <!-- TOC -->
+        <nav class="hidden lg:block sticky top-[100px] reveal">
+          <div class="font-mono text-[.56rem] tracking-[.22em] uppercase text-[#8599b0] mb-4">Contents</div>
+          <div class="flex flex-col gap-0.5">
+            {[
+              {id:'collection',label:'Data We Collect'},
+              {id:'use',label:'How We Use Data'},
+              {id:'storage',label:'Data Storage & Regions'},
+              {id:'rights',label:'Your Rights'},
+              {id:'cookies',label:'Cookies'},
+              {id:'security',label:'Security'},
+              {id:'children',label:'Children\'s Privacy'},
+              {id:'changes',label:'Policy Changes'},
+              {id:'contact',label:'Contact Us'},
+            ].map(item => (
+              <a href={`#${item.id}`}
+                 class="text-[.875rem] text-[#4e647d] px-3 py-1.5 rounded-[6px] border-l-2 border-transparent hover:bg-[#f3f6fb] hover:text-[#0d2137] hover:border-[#1fa84b] transition-all">
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <!-- Content -->
+        <article class="prose reveal">
+          <p>Engage Workforce Ltd ("PatrolPilot", "we", "our", "us") is committed to protecting the privacy of our customers, users and website visitors. This Privacy Policy explains how we collect, use, disclose and safeguard your information when you use our platform and website.</p>
+
+          <h2 id="collection">Data We Collect</h2>
+          <p>We collect information you provide directly, including: account registration details (name, email, company); billing and payment information; guard workforce data (names, licences, location data); incident reports, patrol records and compliance documents; and communications with our support team.</p>
+          <p>We also collect data automatically when you use the platform, including: IP addresses, browser type, device information; usage and interaction data; GPS coordinates and location data when using the guard mobile app; and log data including access times and pages viewed.</p>
+
+          <h2 id="use">How We Use Your Data</h2>
+          <p>We use your data to: provide, operate and improve the PatrolPilot platform; process transactions and send related communications; provide customer support; send product updates and security industry insights (where you have consented); comply with legal obligations; and protect the security and integrity of our platform.</p>
+          <p>We do not sell your personal data to third parties. We share data only with service providers necessary to deliver our services (cloud hosting, payment processors, analytics tools) under appropriate data processing agreements.</p>
+
+          <h2 id="storage">Data Storage & Regional Hosting</h2>
+          <p>PatrolPilot stores customer data within the region selected at account setup:</p>
+          <ul>
+            <li><strong>United States & Canada:</strong> AWS US-East (Northern Virginia)</li>
+            <li><strong>United Kingdom:</strong> AWS EU-West (London)</li>
+            <li><strong>UAE:</strong> AWS ME-Central (UAE)</li>
+            <li><strong>Singapore:</strong> AWS AP-Southeast (Singapore)</li>
+          </ul>
+          <p>Data does not leave your selected region without your explicit consent. All data is encrypted at rest using AES-256 and in transit using TLS 1.3.</p>
+
+          <h2 id="rights">Your Rights</h2>
+          <p>Depending on your region, you have the following rights regarding your personal data:</p>
+          <ul>
+            <li><strong>UK/EU (GDPR):</strong> Right to access, rectification, erasure, restriction, portability and objection.</li>
+            <li><strong>USA — California (CCPA):</strong> Right to know, delete and opt-out of sale of personal information.</li>
+            <li><strong>Singapore (PDPA):</strong> Right to access and correction of personal data.</li>
+            <li><strong>UAE (UAE PDPL):</strong> Right to access, correction and erasure of personal data.</li>
+          </ul>
+          <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@patrolpilot.com">privacy@patrolpilot.com</a>. We will respond within 30 days.</p>
+
+          <h2 id="cookies">Cookies</h2>
+          <p>Our website uses essential cookies required for the platform to function, and optional analytics cookies to help us understand how the website is used. You can manage your cookie preferences via our cookie settings panel. We do not use advertising or tracking cookies.</p>
+
+          <h2 id="security">Security</h2>
+          <p>We implement appropriate technical and organisational measures to protect your data, including: AES-256 encryption at rest and in transit; role-based access controls and multi-factor authentication; regular penetration testing and security audits; ISO 27001 certification; and SOC 2 Type II compliance.</p>
+
+          <h2 id="children">Children's Privacy</h2>
+          <p>PatrolPilot is a business-to-business platform intended for use by security companies and their employees. We do not knowingly collect personal information from individuals under the age of 18.</p>
+
+          <h2 id="changes">Changes to This Policy</h2>
+          <p>We may update this Privacy Policy from time to time. We will notify you of material changes by email or via a notice on our platform at least 30 days before changes take effect. Your continued use of the platform after the effective date constitutes acceptance of the updated policy.</p>
+
+          <h2 id="contact">Contact Us</h2>
+          <p>For privacy-related enquiries, please contact our Data Protection team:</p>
+          <ul>
+            <li><strong>Email:</strong> <a href="mailto:privacy@patrolpilot.com">privacy@patrolpilot.com</a></li>
+            <li><strong>Company:</strong> Engage Workforce Ltd</li>
+          </ul>
+
+          <blockquote>This Privacy Policy was last updated on 1 May 2025.</blockquote>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
