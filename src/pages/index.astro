@@ -10,7 +10,7 @@
  *   - Stats via ACF Options page
  */
 import Layout from '@/layouts/Layout.astro';
-import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
+import { STATS, FEATURES, SECURITY_TICKER_ITEMS,STATS_items, SITE } from '@/lib/config';
 
 // Fetch dynamic content from WordPress at build time
 // import { getACFOptions, getLatestPosts } from '@/lib/wordpress';
@@ -78,7 +78,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
             Security Guard Management
             <span class="block"
                   style="background:linear-gradient(135deg,#2dd65a 0%,#1fa84b 50%,#148036 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
-              Built for Global Teams.
+             Built globally.
             </span>
           </h1>
 
@@ -109,15 +109,18 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
           <div class="trust-row animate-fade-up" style="animation-delay:.4s">
             <span class="trust-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-              USA · Canada · UK
+              Regionally Hosted
+
             </span>
             <span class="trust-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
-              UAE · Singapore
+             ISO 27001
+
             </span>
             <span class="trust-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              ISO 27001
+              24/7 Support
+
             </span>
             <span class="trust-badge">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 9-14 9V3z"/></svg>
@@ -127,8 +130,8 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
 
           <!-- Hero stats strip -->
           <div class="flex border border-white/[0.08] rounded-[10px] overflow-hidden bg-white/[0.03] backdrop-blur-[8px] w-fit mt-9 animate-fade-up" style="animation-delay:.5s">
-            {STATS.map((s, i) => (
-              <div class:list={['px-[22px] py-[14px] text-center', i < STATS.length - 1 && 'border-r border-white/[0.08]']}>
+            {STATS_items.map((s, i) => (
+              <div class:list={['px-[22px] py-[14px] text-center', i < STATS_items.length - 1 && 'border-r border-white/[0.08]']}>
                 <div class="font-display text-[1.8rem] font-bold text-white tracking-[-0.05em] leading-none">
                   {s.value}<span class="text-[#1fa84b]">{s.suffix}</span>
                 </div>
@@ -147,7 +150,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
               <div class="w-[9px] h-[9px] rounded-full bg-[#ef4444]"></div>
               <div class="w-[9px] h-[9px] rounded-full bg-[#f59e0b]"></div>
               <div class="w-[9px] h-[9px] rounded-full bg-[#1fa84b]"></div>
-              <span class="font-mono text-[.55rem] text-white/22 ml-1">app.patrolpilot.com/dashboard</span>
+              <span class="font-mono text-[.55rem] text-white/30 ml-1">app.patrolpilot.com/dashboard</span>
             </div>
             <!-- Dashboard body -->
             <div class="p-3.5">
@@ -184,7 +187,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
                 {[{n:'18',l:'On Duty',c:'#1fa84b'},{n:'3',l:'En Route',c:'#f59e0b'},{n:'24',l:'Sites',c:'#fff'}].map(s => (
                   <div class="rounded-[7px] p-2 text-center border border-white/[0.07]" style="background:rgba(255,255,255,.04)">
                     <div class="font-display text-[1.15rem] font-bold leading-none tracking-[-0.04em]" style={`color:${s.c}`}>{s.n}</div>
-                    <div class="font-mono text-[.48rem] text-white/28 mt-0.5 uppercase tracking-[.1em]">{s.l}</div>
+                    <div class="font-mono text-[.48rem] text-white/30 mt-0.5 uppercase tracking-[.1em]">{s.l}</div>
                   </div>
                 ))}
               </div>
@@ -200,7 +203,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
             </div>
             <div>
               <div class="font-display text-[.72rem] font-semibold text-white leading-none">Checkpoint Scanned</div>
-              <div class="font-mono text-[.52rem] text-white/32 mt-0.5 uppercase tracking-[.1em]">Gate B — City Tower · 2 min ago</div>
+              <div class="font-mono text-[.52rem] text-white/30 mt-0.5 uppercase tracking-[.1em]">Gate B — City Tower · 2 min ago</div>
             </div>
           </div>
 
@@ -212,7 +215,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
             </div>
             <div>
               <div class="font-display text-[.72rem] font-semibold text-white leading-none">SOS Alert Resolved</div>
-              <div class="font-mono text-[.52rem] text-white/32 mt-0.5 uppercase tracking-[.1em]">Westfield Site · 14 min ago</div>
+              <div class="font-mono text-[.52rem] text-white/30 mt-0.5 uppercase tracking-[.1em]">Westfield Site · 14 min ago</div>
             </div>
           </div>
         </div>
@@ -233,23 +236,7 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
     </div>
   </div>
 
-  <!-- ── COUNTRIES STRIP ──────────────────────────────────────────────────── -->
-  <div class="py-12 border-b border-[#d8e2ef]">
-    <div class="container">
-      <div class="flex items-center justify-center gap-3 flex-wrap">
-        <span class="font-mono text-[.58rem] tracking-[.22em] uppercase text-[#8599b0] mr-2">
-          Serving Security Companies In
-        </span>
-        {[{flag:'🇺🇸',label:'United States'},{flag:'🇨🇦',label:'Canada'},{flag:'🇬🇧',label:'United Kingdom'},{flag:'🇦🇪',label:'UAE'},{flag:'🇸🇬',label:'Singapore'}].map(c => (
-          <span class="flex items-center gap-1.5 px-4 py-2 border-[1.5px] border-[#d8e2ef] rounded-[8px]
-                        font-display text-[.85rem] font-semibold text-[#0d2137] bg-[#f3f6fb]
-                        hover:border-[#1fa84b] hover:shadow-[0_2px_12px_rgba(31,168,75,.12)] transition-all cursor-default">
-            {c.flag} {c.label}
-          </span>
-        ))}
-      </div>
-    </div>
-  </div>
+
 
   <!-- ── STATS STRIP ──────────────────────────────────────────────────────── -->
   <div class="bg-[#0d2137] border-t border-white/[0.06] border-b border-white/[0.06]">
@@ -265,8 +252,26 @@ import { STATS, FEATURES, SECURITY_TICKER_ITEMS, SITE } from '@/lib/config';
             <div class="font-display text-[2.6rem] font-bold text-white tracking-[-0.06em] leading-none mb-1.5">
               {s.value}<span class="text-[#1fa84b]">{s.suffix}</span>
             </div>
-            <div class="font-mono text-[.57rem] tracking-[.2em] uppercase text-white/28">{s.label}</div>
+            <div class="font-mono text-[.57rem] tracking-[.2em] uppercase text-white/30">{s.label}</div>
           </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+    <!-- ── COUNTRIES STRIP ──────────────────────────────────────────────────── -->
+  <div class="py-12 border-b border-[#d8e2ef]">
+    <div class="container">
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <span class="font-mono text-[.58rem] tracking-[.22em] uppercase text-[#8599b0] mr-2">
+          Serving Security Companies In
+        </span>
+        {[{flag:'🇺🇸',label:'United States'},{flag:'🇨🇦',label:'Canada'},{flag:'🇬🇧',label:'United Kingdom'},{flag:'🇦🇪',label:'UAE'},{flag:'🇸🇬',label:'Singapore'}].map(c => (
+          <span class="flex items-center gap-1.5 px-4 py-2 border-[1.5px] border-[#d8e2ef] rounded-[8px]
+                        font-display text-[.85rem] font-semibold text-[#0d2137] bg-[#f3f6fb]
+                        hover:border-[#1fa84b] hover:shadow-[0_2px_12px_rgba(31,168,75,.12)] transition-all cursor-default">
+            {c.flag} {c.label}
+          </span>
         ))}
       </div>
     </div>

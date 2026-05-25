@@ -51,21 +51,28 @@ export const NAV_LINKS = [
 ] as const;
 
 export const FEATURES = [
-  { id: 'gps', icon: 'map-pin', title: 'Live GPS Guard Tracking', desc: 'Real-time location of every guard on every shift. Alerts for missed check-ins and SOS events.' },
-  { id: 'nfc', icon: 'shield-check', title: 'NFC Checkpoint Tours', desc: 'Tamper-proof patrol verification with timestamped checkpoint scans.' },
-  { id: 'scheduling', icon: 'calendar', title: 'Smart Scheduling', desc: 'Drag-and-drop roster builder with licence compliance checks built in.' },
-  { id: 'incidents', icon: 'file-text', title: 'Incident Reports', desc: 'Photo-enabled digital reports submitted instantly from guards\' phones.' },
-  { id: 'sos', icon: 'phone-call', title: 'SOS & Lone Worker', desc: 'One-tap SOS alerts supervisors with the guard\'s exact GPS location.' },
-  { id: 'compliance', icon: 'check-circle', title: 'Licence Compliance', desc: 'Automated expiry tracking blocks non-compliant guards from scheduling.' },
-  { id: 'payroll', icon: 'dollar-sign', title: 'Payroll Integration', desc: 'Auto-timesheets exported to ADP, QuickBooks, Xero, Sage and more.' },
-  { id: 'analytics', icon: 'bar-chart', title: 'Analytics & Reporting', desc: 'Real-time KPI dashboards and client-ready patrol reports.' },
-  { id: 'app', icon: 'smartphone', title: 'Guard Mobile App', desc: 'iOS and Android app with full offline mode for guards in the field.' },
+  { id: 'TRACKING', icon: 'map-pin', title: 'GPS Guard Tracking', desc: 'Real-time location of every guard on an interactive map. Instant alerts for missed check-ins, SOS events, and geofence breaches. Full shift history and route replay.' },
+  { id: 'CHECKPOINTS', icon: 'shield-check', title: 'NFC Checkpoint Tours', desc: 'Guards tap NFC tags at defined checkpoints to verify presence. Generates timestamped patrol reports automatically. Tamper-proof proof-of-attendance for clients.' },
+  { id: 'SCHEDULING', icon: 'calendar', title: 'Smart Scheduling', desc: 'Drag-and-drop roster builder with intelligent conflict detection. Automatic licence compliance checks — never schedule an expired guard.' },
+  { id: 'INCIDENTS', icon: 'file-text', title: 'Digital Incident Reports', desc: 'Structured, photo-enabled incident reports submitted from guards phones. Automatic client notifications and escalation workflows.' },
+  { id: 'COMPLIANCE', icon: 'phone-call', title: 'SOS & Lone Worker Alerts', desc: 'One-tap SOS button alerts supervisors instantly with the guards exact location. Periodic welfare checks for lone workers working in high-risk environments.' },
+  { id: 'REPORTING', icon: 'check-circle', title: 'Licence & Cert Tracking', desc: 'Track security licence expiry, first aid certificates and working rights. Automatic reminders before expiry. Non-compliant guards blocked from scheduling.' },
+  { id: 'PAYROLL', icon: 'dollar-sign', title: 'Timesheet & Payroll', desc: 'Automatic timesheets from clock-in/clock-out data. Exports to ADP, QuickBooks, Xero, Sage and local payroll systems. Eliminates manual time entry and payroll errors.' },
+  { id: 'REPORTING', icon: 'bar-chart', title: 'Analytics & Reporting', desc: 'Real-time KPI dashboards, client patrol reports, guard performance metrics and compliance summaries. White-label client portal included.' },
+  { id: 'MOBILE', icon: 'smartphone', title: 'Guard Mobile App', desc: 'iOS and Android app for guards. Shift notifications, clock-in, patrol routes, incident forms and SOS — all in one purpose-built guard app.' },
 ] as const;
 
 export const STATS = [
   { value: '500', suffix: '+', label: 'Security Companies' },
   { value: '12', suffix: 'K+', label: 'Guards Managed Daily' },
   { value: '2.4', suffix: 'M+', label: 'Patrols Completed' },
+  { value: '99', suffix: '%', label: 'Platform Uptime SLA' },
+] as const;
+
+export const STATS_items = [
+  { value: '500', suffix: '+', label: 'Companies' },
+  { value: '12', suffix: 'K+', label: 'Guards Managed' },
+  // { value: '2.4', suffix: 'M+', label: 'Patrols Completed' },
   { value: '99', suffix: '%', label: 'Uptime SLA' },
 ] as const;
 
