@@ -34,6 +34,47 @@ const SECURITY_TICKER_ICON_PATHS: Record<string, string> = {
 };
 
 const HOME_FEATURES = FEATURES.slice(0, 6);
+
+const ONBOARDING_ICON_PATHS: Record<string, string> = {
+  users: 'M16 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8zM20 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+  calendar: 'M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z',
+  smartphone: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zM12 18h.01',
+  activity: 'M3 12h4l3-8 4 16 3-8h4',
+};
+
+const ONBOARDING_STEPS = [
+  {
+    step: 'Step 01',
+    icon: 'users',
+    title: 'Add Your Team',
+    desc: 'Import guards, add licences, set roles and build your site list. Our onboarding team helps you get configured fast.',
+  },
+  {
+    step: 'Step 02',
+    icon: 'calendar',
+    title: 'Build Your Schedule',
+    desc: 'Create shifts with our drag-and-drop scheduler. Guards receive push notifications the moment they\'re rostered.',
+  },
+  {
+    step: 'Step 03',
+    icon: 'smartphone',
+    title: 'Guards Use the App',
+    desc: 'Guards clock in, scan NFC checkpoints, submit reports and send SOS alerts from the PatrolPilot mobile app.',
+  },
+  {
+    step: 'Step 04',
+    icon: 'activity',
+    title: 'Monitor & Report',
+    desc: 'Watch operations in real time from your dashboard. Generate client reports and compliance records with one click.',
+  },
+] as const;
+
+const SECURITY_SECTION_ICON_PATHS: Record<string, string> = {
+  lock: 'M7 11V7a5 5 0 0110 0v4M6 11h12a2 2 0 012 2v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7a2 2 0 012-2z',
+  'shield-check': 'M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4zM9 12l2 2 4-4',
+  activity: 'M3 12h4l3-8 4 16 3-8h4',
+  clock: 'M12 6v6l4 2M12 2a10 10 0 100 20 10 10 0 000-20z',
+};
 ---
 
 <Layout
@@ -344,6 +385,45 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
     </div>
   </section>
 
+  <!-- ── ONBOARDING ────────────────────────────────────────────────────────── -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-14 lg:mb-16">
+        <div class="eyebrow-center reveal">Simple Onboarding</div>
+        <h2 class="font-display font-bold text-[#0d2137] tracking-[-0.045em] leading-[1.02] mt-3.5 reveal"
+            style="font-size:clamp(2rem,3.5vw,3rem)" data-delay="1">
+          Up and running in days, not months
+        </h2>
+      </div>
+
+      <div class="relative">
+        <div class="hidden lg:block absolute left-[6.5%] right-[6.5%] top-[83px] h-px bg-[#d8e2ef]"></div>
+        <div class="hidden lg:block absolute left-[50%] top-[83px] h-px w-[16%] -translate-x-1/2 bg-[#1fa84b]"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 xl:gap-10">
+          {ONBOARDING_STEPS.map((step, i) => (
+            <div class="relative reveal group" data-delay={String((i % 4) + 1)}>
+              <div class="font-mono text-[.58rem] tracking-[.3em] uppercase text-[#1fa84b] mb-6">
+                {step.step}
+              </div>
+              <div class="w-[68px] h-[68px] rounded-[18px] bg-white border border-[#d8e2ef] shadow-[0_6px_20px_rgba(13,33,55,.06)] flex items-center justify-center text-[#1c2f4d] mb-8 transition-all duration-200 group-hover:bg-[#1fa84b] group-hover:text-white group-hover:border-[#1fa84b]">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d={ONBOARDING_ICON_PATHS[step.icon] ?? ONBOARDING_ICON_PATHS.activity} />
+                </svg>
+              </div>
+              <h3 class="font-display text-[1.08rem] font-semibold text-[#0d2137] tracking-[-0.02em] mb-3">
+                {step.title}
+              </h3>
+              <p class="text-[.96rem] text-[#4e647d] leading-[1.75] max-w-[290px]">
+                {step.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── SECURITY IDENTITY ─────────────────────────────────────────────────── -->
   <section class="section relative overflow-hidden" style="background:var(--navy)">
     <div class="absolute inset-0" style="background:radial-gradient(ellipse 60% 70% at 85% 50%,rgba(31,168,75,.1) 0%,transparent 60%)"></div>
@@ -357,20 +437,23 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
             Enterprise-grade security. Every region.
           </h2>
           <p class="text-[1rem] text-white/40 leading-[1.74] font-light mb-8 reveal" data-delay="2">
-            Every data point in PatrolPilot is protected with AES-256 encryption, hosted on regional cloud infrastructure
-            in your country, and audited to ISO 27001 — meeting GDPR, CCPA, PDPA and UAE PDPL requirements.
+            Every data point in PatrolPilot is protected with bank-grade encryption, hosted on regional cloud infrastructure, and audited to ISO 27001 standards.
+
+
           </p>
           <div class="space-y-5 reveal" data-delay="3">
             {[
-              {title:'AES-256 Encryption',desc:'All guard data, locations and reports encrypted at rest and in transit.'},
-              {title:'Regional Data Sovereignty',desc:'Data hosted in-country: US-East, EU-West, ME-Central, AP-Southeast.'},
-              {title:'99.9% Uptime SLA',desc:'Multi-region redundancy ensures patrol operations are never interrupted.'},
-              {title:'Real-time Audit Logs',desc:'Every action logged with timestamps for compliance and investigations.'},
+              {title:'AES-256 Encryption',desc:'All guard data, locations and reports encrypted at rest and in transit.',icon:'lock'},
+              {title:'Regional Data Sovereignty',desc:'Data hosted in-country: US-East, EU-West, ME-Central, AP-Southeast.',icon:'shield-check'},
+              {title:'99.9% Uptime SLA',desc:'Multi-region redundancy ensures patrol operations are never interrupted.',icon:'activity'},
+              {title:'Real-time Audit Logs',desc:'Every action logged with timestamps for compliance and investigations.',icon:'clock'},
             ].map(item => (
               <div class="flex items-start gap-3">
                 <div class="w-[40px] h-[40px] rounded-[10px] flex-shrink-0 flex items-center justify-center"
                      style="background:rgba(31,168,75,.1);border:1px solid rgba(31,168,75,.2);color:#1fa84b">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d={SECURITY_SECTION_ICON_PATHS[item.icon] ?? SECURITY_SECTION_ICON_PATHS.lock} />
+                  </svg>
                 </div>
                 <div>
                   <div class="font-display text-[.9rem] font-semibold text-white mb-0.5">{item.title}</div>
@@ -385,8 +468,8 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
             {[
               {v:'256-bit',l:'Encryption',c:'#fff',g:''},
               {v:'99%',l:'Uptime SLA',c:'#1fa84b',g:''},
-              {v:'GLOBAL',l:'5 Countries',c:'#1fa84b',g:''},
-              {v:'ISO\n27001',l:'Certified',c:'#fff',g:''},
+              {v:'AUS',l:'Data Hosted',c:'#1fa84b',g:''},
+              {v:'ISO\n27001',l:'Certified',c:'#1fa84b',g:''},
             ].map(card => (
               <div class="rounded-[14px] p-6 text-center border border-white/10 bg-white/5">
                 <div class="font-display text-[2.2rem] font-bold leading-none tracking-[-0.05em] whitespace-pre-line" style={`color:${card.c}`}>{card.v}</div>
@@ -396,8 +479,8 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
           </div>
           <div class="flex flex-wrap gap-2 mt-3">
             <span class="sec-badge sec-badge--navy"><span class="badge-dot"></span>SOC 2 Type II</span>
-            <span class="sec-badge sec-badge--navy">GDPR &amp; CCPA</span>
-            <span class="sec-badge sec-badge--navy">PDPA &amp; UAE PDPL</span>
+            <span class="sec-badge sec-badge--navy">GDPR Compliant</span>
+            <span class="sec-badge sec-badge--navy">Multi-Region Compliant</span>
           </div>
         </div>
       </div>
@@ -416,9 +499,9 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-[18px]">
         {[
-          {initials:'MK',name:'Marcus Kelly',role:'Operations Director · USA Security Group',quote:'PatrolPilot completely replaced our paper-based system. We can now see every guard in real time and generate client reports in seconds.'},
-          {initials:'SR',name:'Sarah Roberts',role:'General Manager · UK Metro Guard Services',quote:'The NFC checkpoint tours are a game-changer. Our clients love the automated patrol reports and we\'ve reduced no-show incidents by over 90%.'},
-          {initials:'JT',name:'James Thompson',role:'CEO · Protect360 Security — Dubai',quote:'Licence compliance alone has saved us thousands in potential fines. PatrolPilot alerts us before a licence expires.'},
+          {initials:'MK',name:'Marcus Kelly',role:'Operations Director · USA Security Group',quote:'PatrolPilot completely replaced our paper-based system. We can now see every guard in real time and generate client reports in seconds. its transformed how we operate.'},
+          {initials:'SR',name:'Sarah Roberts',role:'General Manager · UK Metro Guard Services',quote:'The NFC checkpoint tours are a game-changer. Our clients love the automated patrol reports and weve reduced no-show incidents by over 90% since going live.'},
+          {initials:'JT',name:'James Thompson',role:'CEO · Protect360 Security — Dubai',quote:'Licence compliance alone has saved us thousands in potential fines. PatrolPilot alerts us before a licence expires so no guard ever works without valid credentials.'},
         ].map((t, i) => (
           <div class="bg-white rounded-[16px] border border-[#d8e2ef] p-7 hover:shadow-[0_8px_32px_rgba(13,33,55,.13)] hover:-translate-y-[3px] transition-all reveal" data-delay={String(i+1)}>
             <div class="text-[#f59e0b] text-[.9rem] mb-3.5 tracking-[2px]">★★★★★</div>
@@ -450,7 +533,7 @@ const HOME_FEATURES = FEATURES.slice(0, 6);
         Ready to modernise your security operations?
       </h2>
       <p class="text-[1rem] text-white/40 max-w-[520px] mx-auto mb-9 leading-[1.74] font-light reveal" data-delay="2">
-        Join 500+ security companies across the USA, Canada, UK, UAE and Singapore using PatrolPilot.
+        Join 500+ security companies across the USA, Canada, UK, UAE and Singapore using PatrolPilot to manage guards, track compliance, and streamline operations from one platform.
       </p>
       <div class="flex items-center justify-center gap-3 flex-wrap reveal" data-delay="3">
         <a href="/request-demo"

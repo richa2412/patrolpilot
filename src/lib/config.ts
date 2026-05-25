@@ -77,9 +77,9 @@ export const STATS_items = [
 ] as const;
 
 export const COMPLIANCE_BADGES = [
-  'SOC 2 Type II',
+  'AES-256 Encrypted',
+  'Regionally Hosted',
   'ISO 27001',
-  'GDPR',
   'CCPA',
   'PDPA',
   'UAE PDPL',
