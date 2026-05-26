@@ -11,31 +11,31 @@ const steps = [
   {
     num: 'Step 01',
     title: 'Set up your company profile',
-    desc: 'Add your company details, import guards, upload security licences, and build your site list. Our regional onboarding team will assist you — most companies complete setup in under a day.',
-    badges: ['Bulk guard import', 'Licence upload', 'Site mapping', 'NFC tag placement guide'],
+    desc: 'Add your company details, import guards, upload their security licences, and build your site list. Our regional onboarding team (USA, UK, UAE or Singapore) will assist you through every step — most companies complete setup in under a day.',
+    badges: ['Bulk guard import', 'Licence upload', 'Site mapping'],
     visual: 'setup',
   },
   {
     num: 'Step 02',
     title: 'Build your first schedule',
     desc: 'Use the drag-and-drop scheduler to assign guards to shifts. The system automatically checks licence validity and overtime rules. Guards receive instant push notifications when rostered.',
-    badges: ['Drag-and-drop', 'Licence auto-check', 'Push notifications', 'Repeat weekly rosters'],
+    badges: ['Drag-and-drop', 'Licence auto-check', 'Push notifications'],
     visual: 'schedule',
   },
-  {
-    num: 'Step 03',
-    title: 'Guards use the mobile app',
-    desc: 'Guards download the free PatrolPilot app (iOS & Android), clock in with GPS verification, scan NFC checkpoints on patrol, submit incident reports and activate SOS alerts — all from one app.',
-    badges: ['GPS clock-in', 'NFC checkpoint scan', 'Incident reports', 'SOS one-tap'],
-    visual: 'app',
-  },
-  {
-    num: 'Step 04',
-    title: 'Monitor & report in real time',
-    desc: 'Watch your entire operation from the live dashboard. Generate client patrol reports, compliance summaries and payroll exports with a single click.',
-    badges: ['Live dashboard', 'Client reports', 'Payroll export', 'Compliance summary'],
-    visual: 'monitor',
-  },
+  // {
+  //   num: 'Step 03',
+  //   title: 'Guards use the mobile app',
+  //   desc: 'Guards download the free PatrolPilot app (iOS & Android), clock in with GPS verification, scan NFC checkpoints on patrol, submit incident reports and activate SOS alerts — all from one app.',
+  //   badges: ['GPS clock-in', 'NFC checkpoint scan', 'Incident reports', 'SOS one-tap'],
+  //   visual: 'app',
+  // },
+  // {
+  //   num: 'Step 04',
+  //   title: 'Monitor & report in real time',
+  //   desc: 'Watch your entire operation from the live dashboard. Generate client patrol reports, compliance summaries and payroll exports with a single click.',
+  //   badges: ['Live dashboard', 'Client reports', 'Payroll export', 'Compliance summary'],
+  //   visual: 'monitor',
+  // },
 ];
 ---
 
@@ -44,7 +44,7 @@ const steps = [
   description="Get your security team up and running in 48 hours. Add guards, build your schedule, deploy the mobile app, then monitor everything in real time."
 >
   <PageHero
-    eyebrow="Simple Onboarding"
+    eyebrow="How It Works"
     title="Get your team up and running"
     titleEm="in 48 hours."
     sub="PatrolPilot is designed for quick adoption. Most security companies are fully operational within two days of signing up."
@@ -184,7 +184,7 @@ const steps = [
   </section>
 
   <!-- Step progress bar -->
-  <section class="section-sm bg-[#f3f6fb] border-t border-[#d8e2ef]">
+  <!-- <section class="section-sm bg-[#f3f6fb] border-t border-[#d8e2ef]">
     <div class="container">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-0 border border-[#d8e2ef] rounded-[16px] overflow-hidden reveal">
         {steps.map((step, i) => (
@@ -195,7 +195,7 @@ const steps = [
         ))}
       </div>
     </div>
-  </section>
+  </section> -->
 
   <CTASection />
 </Layout>
