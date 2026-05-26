@@ -18,7 +18,7 @@ import FormStyles from '@/components/FormStyles.astro';
     title="See PatrolPilot"
     titleEm="in action."
     sub="Get a personalised 30-minute walkthrough with one of our security software specialists. We'll show you exactly how PatrolPilot can work for your business."
-    center={true}
+    center={false}
   >
     <div class="mt-4">
       <span class="sec-badge sec-badge--navy inline-flex">
@@ -32,16 +32,7 @@ import FormStyles from '@/components/FormStyles.astro';
     <div class="container">
       <div class="max-w-[640px] mx-auto">
 
-        <!-- Demo stats row -->
-        <div class="grid grid-cols-3 gap-4 mb-10">
-          {[{v:'30 min',l:'Demo Length'},{v:'Free',l:'No Commitment'},{v:'1 day',l:'Response Time'}].map((s,i) => (
-            <div class="text-center bg-white rounded-[12px] border border-[#d8e2ef] p-4 reveal" data-delay={String(i+1)}>
-              <div class:list={["font-display text-[1.6rem] font-bold tracking-[-0.04em]", i === 1 ? "text-[#1fa84b]" : "text-[#0d2137]"]}>{s.v}</div>
-              <div class="font-mono text-[.57rem] tracking-[.16em] uppercase text-[#8599b0] mt-1">{s.l}</div>
-            </div>
-          ))}
-        </div>
-
+      
         <!-- Form card -->
         <div class="bg-white rounded-[20px] border border-[#d8e2ef] shadow-[0_24px_64px_rgba(13,33,55,.14)] p-10 reveal" data-delay="1">
           <h2 class="font-display text-[1.5rem] font-bold text-[#0d2137] tracking-[-0.04em] mb-2">Request your free demo</h2>
@@ -109,7 +100,7 @@ import FormStyles from '@/components/FormStyles.astro';
         </div>
 
         <!-- Trust items -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
+        <!-- <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
           {[
             {icon:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',text:'AES-256 Encrypted'},
             {icon:'M20 6 9 17l-5-5',text:'No commitment'},
@@ -123,7 +114,40 @@ import FormStyles from '@/components/FormStyles.astro';
               <span class="text-[.78rem] text-[#4e647d] font-medium leading-tight">{t.text}</span>
             </div>
           ))}
+        </div> -->
+
+          <!-- Demo stats row -->
+        <div class="grid grid-cols-3 gap-4 my-10">
+          {[{v:'30 min',l:'Demo Length'},{v:'Free',l:'No Commitment'},{v:'1 day',l:'Response Time'}].map((s,i) => (
+            <div class="text-center bg-white rounded-[12px] border border-[#d8e2ef] p-4 reveal" data-delay={String(i+1)}>
+              <div class:list={["font-display text-[1.6rem] font-bold tracking-[-0.04em]", i === 1 ? "text-[#1fa84b]" : "text-[#0d2137]"]}>{s.v}</div>
+              <div class="font-mono text-[.57rem] tracking-[.16em] uppercase text-[#8599b0] mt-1">{s.l}</div>
+            </div>
+          ))}
         </div>
+
+      </div>
+    </div>
+  </section>
+
+   <section class="relative overflow-hidden py-[90px] text-center" style="background:linear-gradient(135deg,#07111f,#0d2137,#0f2948)">
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(31,168,75,.1) 0%,transparent 65%)"></div>
+    <div class="container relative z-10">
+      <div class="eyebrow-center reveal">Try PatrolPilot Free</div>
+      <h2 class="font-display font-bold text-white tracking-[-0.05em] leading-[.96] mt-4 mb-5 mx-auto reveal"
+          style="font-size:clamp(2rem,3.5vw,3rem);max-width:560px" data-delay="1">
+        Stop managing guards with spreadsheets.
+      </h2>
+      <div class="flex items-center justify-center gap-3 flex-wrap reveal" data-delay="2">
+        <a href="/request-demo"
+           class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white rounded-[12px]
+                  bg-gradient-to-br from-[#24c455] via-[#1fa84b] to-[#178a3c]
+                  hover:brightness-110 hover:-translate-y-0.5 transition-all">
+          Book a Free Demo
+        </a>
+        <a href="/pricing" class="inline-flex items-center gap-2 px-8 py-4 font-display text-[.95rem] font-semibold text-white/85 rounded-[12px] bg-white/[0.08] border border-white/[0.18] hover:bg-white/16 hover:text-white transition-all">
+          View Pricing
+        </a>
       </div>
     </div>
   </section>
