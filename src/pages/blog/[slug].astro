@@ -7,18 +7,28 @@
 import Layout from '@/layouts/Layout.astro';
 import { getAllPosts, getPostBySlug, getRelatedPosts, getImageUrl, formatDate, readingTime, stripHtml } from '@/lib/wordpress';
 import type { WPPost } from '@/lib/wordpress';
+import { BLOG_FALLBACK_POSTS } from '@/lib/blog-fallback';
 
 export async function getStaticPaths() {
   try {
     // Fetch all posts for static path generation
     const { posts } = await getAllPosts({ perPage: 100 });
+    if (!posts.length) {
+      return BLOG_FALLBACK_POSTS.map(post => ({
+        params: { slug: post.slug },
+        props: { post },
+      }));
+    }
     return posts.map(post => ({
       params: { slug: post.slug },
       props: { post },
     }));
   } catch {
-    // Return empty if WP not connected — pages will 404 gracefully
-    return [];
+    // Fall back to local static blog posts when WordPress is unavailable
+    return BLOG_FALLBACK_POSTS.map(post => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
   }
 }
 
@@ -35,8 +45,12 @@ if (!displayPost) {
   try {
     displayPost = await getPostBySlug(slug);
   } catch {
-    return Astro.redirect('/blog');
+    displayPost = BLOG_FALLBACK_POSTS.find((item) => item.slug === slug) || null;
   }
+}
+
+if (!displayPost) {
+  displayPost = BLOG_FALLBACK_POSTS.find((item) => item.slug === slug) || null;
 }
 
 if (!displayPost) {
