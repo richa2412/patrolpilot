@@ -134,6 +134,36 @@ const INCLUDED_FEATURES = [
     desc: 'Bank-grade security on all data, at rest and in transit.',
   },
 ] as const;
+
+const SALES_HIGHLIGHT_ICON_PATHS: Record<string, string> = {
+  pricing: 'M20 6 9 17l-5-5',
+  shield: 'M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4z',
+  support: 'M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2c3 3.5 3 12 0 20M12 2c-3 3.5-3 12 0 20',
+  rocket: 'M5 3l14 9-14 9V3z',
+};
+
+const SALES_HIGHLIGHTS = [
+  {
+    icon: 'pricing',
+    title: 'Transparent Pricing',
+    desc: 'Starting from $3,500/yr - no hidden fees',
+  },
+  {
+    icon: 'shield',
+    title: 'Full Platform Included',
+    desc: 'GPS, NFC, scheduling, compliance, mobile app',
+  },
+  {
+    icon: 'support',
+    title: 'Regional Support',
+    desc: 'Local teams in USA, UK, UAE & Singapore',
+  },
+  {
+    icon: 'rocket',
+    title: 'Fast Onboarding',
+    desc: 'Up and running within 48 hours',
+  },
+] as const;
 ---
 
 <Layout
@@ -365,64 +395,43 @@ const INCLUDED_FEATURES = [
   </section>
 
   <!-- Contact Sales Form -->
-  <section class="section bg-white" id="contact-sales">
+  <section class="bg-[#eef2f7] py-20 md:py-24" id="contact-sales">
     <div class="container">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12 md:mb-14">
         <div class="eyebrow-center reveal">Talk to Sales</div>
         <h2
-          class="font-display font-bold text-[#0d2137] tracking-[-0.045em] leading-[1.04] mt-3.5 reveal"
-          style="font-size:clamp(1.8rem,3vw,2.8rem)"
+          class="font-display font-bold text-[#0d2137] tracking-[-0.055em] leading-[1.02] mt-4 reveal"
+          style="font-size:clamp(2.1rem,3.8vw,3.25rem)"
           data-delay="1"
         >
           Get a custom quote for your team
         </h2>
         <p
-          class="text-[.95rem] text-[#4e647d] max-w-[500px] mx-auto mt-3 leading-[1.7] reveal"
+          class="text-[.98rem] text-[#516a88] max-w-[540px] mx-auto mt-4 leading-[1.72] reveal"
           data-delay="2"
         >
           Tell us about your operation and we'll put together a proposal that works for your guard count, region and requirements.
         </p>
       </div>
       <div
-        class="max-w-[900px] mx-auto rounded-[24px] border border-[#d8e2ef] shadow-[0_24px_64px_rgba(13,33,55,.18)] overflow-hidden reveal"
+        class="max-w-[920px] mx-auto rounded-[24px] border border-[#d8e2ef] bg-white shadow-[0_24px_64px_rgba(13,33,55,.14)] overflow-hidden reveal"
       >
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr]">
           <div
-            class="bg-[#0d2137] p-12"
-            style="background-image:radial-gradient(ellipse 80% 70% at 90% 100%,rgba(31,168,75,.15) 0%,transparent 60%)"
+            class="bg-[#10243d] p-8 md:p-10 lg:p-12 text-white"
+            style="background-image:radial-gradient(ellipse 80% 70% at 90% 100%,rgba(31,168,75,.14) 0%,transparent 60%)"
           >
-            <h3 class="font-display text-[1.4rem] font-bold text-white tracking-[-0.03em] mb-2">
+            <h3 class="font-display text-[1.25rem] md:text-[1.4rem] font-bold text-white tracking-[-0.03em] mb-3 max-w-[260px]">
               Why companies choose PatrolPilot
             </h3>
-            <p class="text-[.875rem] text-white/40 mb-8 leading-[1.65]">
+            <p class="text-[.82rem] md:text-[.875rem] text-white/38 mb-8 leading-[1.65] max-w-[280px]">
               Trusted by 500+ security companies across the USA, Canada, UK, UAE and Singapore.
             </p>
-            {[
-              {
-                icon: "M20 6 9 17l-5-5",
-                title: "Transparent Pricing",
-                desc: "Starting from $3,500/yr - no hidden fees",
-              },
-              {
-                icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-                title: "Full Platform Included",
-                desc: "GPS, NFC, scheduling, compliance, mobile app",
-              },
-              {
-                icon: "M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z",
-                title: "Regional Support",
-                desc: "Local teams in USA, UK, UAE & Singapore",
-              },
-              {
-                icon: "M5 3l14 9-14 9V3z",
-                title: "Fast Onboarding",
-                desc: "Up and running within 48 hours",
-              },
-            ].map((item) => (
-              <div class="flex items-start gap-3 mb-6 last:mb-0">
+            <div class="space-y-6">
+              {SALES_HIGHLIGHTS.map((item) => (
+                <div class="flex items-start gap-3">
                 <div
-                  class="w-[38px] h-[38px] rounded-[9px] flex-shrink-0 flex items-center justify-center"
-                  style="background:rgba(31,168,75,.15);border:1px solid rgba(31,168,75,.25)"
+                  class="w-[38px] h-[38px] rounded-[10px] flex-shrink-0 flex items-center justify-center bg-[#0b1d31] border border-[#1fa84b]/30"
                 >
                   <svg
                     width="16"
@@ -431,35 +440,42 @@ const INCLUDED_FEATURES = [
                     fill="none"
                     stroke="#1fa84b"
                     stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                   >
-                    <polyline points={item.icon} />
+                    <path d={SALES_HIGHLIGHT_ICON_PATHS[item.icon] ?? SALES_HIGHLIGHT_ICON_PATHS.pricing} />
                   </svg>
                 </div>
                 <div>
-                  <div class="font-mono text-[.55rem] tracking-[.2em] uppercase text-white/30 mb-1">
+                  <div class="font-mono text-[.53rem] tracking-[.22em] uppercase text-white/30 mb-1.5">
                     {item.title}
                   </div>
-                  <div class="text-[.9rem] text-white/75 font-medium">{item.desc}</div>
+                  <div class="text-[.88rem] md:text-[.80rem] text-white/70 font-semibold leading-[1.45] max-w-[220px]">
+                    {item.desc}
+                  </div>
                 </div>
               </div>
-            ))}
+              ))}
+            </div>
             <div class="mt-8 pt-7 border-t border-white/[0.08]">
-              <div class="font-mono text-[.55rem] tracking-[.2em] uppercase text-white/30 mb-2.5">
+              <div class="font-mono text-[.53rem] tracking-[.22em] uppercase text-white/30 mb-2.5">
                 Compliance
               </div>
-              <div class="flex flex-wrap gap-1.5">
+              <div class="flex flex-wrap gap-2.5">
                 {["SOC 2 Type II", "ISO 27001", "GDPR - CCPA", "PDPA - UAE PDPL"].map((b) => (
-                  <span class="sec-badge sec-badge--navy text-[.5rem]">{b}</span>
+                  <span class="inline-flex items-center rounded-[4px] border border-white/10 px-2.5 py-1 font-mono text-[.60rem] tracking-[.2em] uppercase text-white/55 bg-white/[0.03]">
+                    {b}
+                  </span>
                 ))}
               </div>
             </div>
           </div>
 
-          <div class="p-10">
-            <h3 class="font-display text-[1.3rem] font-bold text-[#0d2137] tracking-[-0.03em] mb-1.5">
+          <div class="p-8 md:p-10 lg:p-11 bg-white">
+            <h3 class="font-display text-[1.25rem] md:text-[1.3rem] font-bold text-[#0d2137] tracking-[-0.03em] mb-1.5">
               Request a custom quote
             </h3>
-            <p class="text-[.875rem] text-[#4e647d] mb-7">
+            <p class="text-[.875rem] text-[#4e647d] mb-7 max-w-[320px]">
               We'll respond within one business day with a tailored proposal.
             </p>
             <form class="space-y-4" onsubmit="return false">
@@ -549,7 +565,7 @@ const INCLUDED_FEATURES = [
   </section>
 
   <!-- FAQ -->
-  <section class="section bg-[#f3f6fb]">
+  <section class="section">
     <div class="container-sm">
       <h2 class="font-display text-[1.8rem] font-bold text-[#0d2137] tracking-[-0.04em] text-center mb-8 reveal">
         Pricing FAQs
